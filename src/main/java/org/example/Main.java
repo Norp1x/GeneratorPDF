@@ -1,37 +1,53 @@
 package org.example;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
-import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
-import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.text.PDFTextStripper;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.*;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
+        File oldFile = new File("C:\\Users\\Norpi\\Desktop\\PD\\kopia1.pdf");
+        PDDocument document1 = null;
         try {
-            // Load the existing PDF form
-            ClassLoader classLoader = Main.class.getClassLoader();
-            InputStream pdfInputStream = classLoader.getResourceAsStream("prot_kopia.pdf");
-            PDDocument pdfDocument = PDDocument.load(pdfInputStream);
-            PDDocumentCatalog documentCatalog = pdfDocument.getDocumentCatalog();
-            PDAcroForm acroForm = documentCatalog.getAcroForm();
+            //wypisanie współrzędnych każdego znaku
+            document1 = PDDocument.load(oldFile);
+            PDFTextStripper stripper = new GetLocation();
+            stripper.setSortByPosition(true);
+            stripper.setStartPage(0);
+            stripper.setEndPage(document1.getNumberOfPages());
 
-            // Fill in the form fields
-            PDField nameField = acroForm.getField("Name");
-            nameField.setValue("John Doe");
+            Writer letters = new OutputStreamWriter(new ByteArrayOutputStream());
+            stripper.writeText(document1, letters);
 
-            PDField emailField = acroForm.getField("Email");
-            emailField.setValue("johndoe@example.com");
+            //ustawianie czcionki
+            PDPage firstPage = document1.getPage(0);
+            PDPageContentStream contentStream = new PDPageContentStream(document1, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
+            contentStream.setLeading(16.0f);
 
-            // Save the filled PDF form
-            pdfDocument.save("filled_form.pdf");
-            pdfDocument.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            //wprowadzanie tekstu w określonych współrzędnych
+            float y = 842;
+            contentStream.setNonStrokingColor(Color.black);
+            contentStream.newLineAtOffset(142, y - 206);
+            contentStream.showText("Przykladowy adres");
+            contentStream.endText();
+            contentStream.close();
+
+            document1.save("C:\\Users\\Norpi\\Desktop\\PD\\myPDF.pdf");
+            System.out.println("PDF Created");
+        } finally {
+            if (document1 != null) {
+                document1.close();
+            }
         }
     }
 }
