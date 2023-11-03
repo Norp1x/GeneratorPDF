@@ -1,0 +1,4 @@
+- aplikacja używana głównie mobilnie
+- aplikacja używana przez przeglądarkę
+- aplikacja polega na wypełnianu formularzy/checkbox'ów/list rozwijanych przez klienta
+- aplikacja zapisze plik w formacie PDF na urządzeniu klienta
