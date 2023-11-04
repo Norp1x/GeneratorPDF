@@ -13,7 +13,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        File oldFile = new File("G:\\Project\\src\\main\\resources\\PDF.pdf");
+        File oldFile = new File("src\\main\\resources\\PDF.pdf");
         PDDocument pdfFile = null;
         try {
             pdfFile = PDDocument.load(oldFile);
@@ -37,7 +37,7 @@ public class Main {
         meterTypeInstalled.close();
 
 
-        pdfFile.save("G:\\Project\\src\\main\\resources\\newPDF.pdf");
+        pdfFile.save("src\\main\\resources\\newPDF.pdf");
         System.out.println("PDF Created");
         pdfFile.close();
     }
