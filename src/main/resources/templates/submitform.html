@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>PDF Generator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form th:action="@{/processform}" th:object="${PdfGenerator}" method="post">
+<span> Address:  </span><span th:text="${address}"></span>
+    <br>
+<span> MeterDismantled:  </span><span th:text="${meterDismantled}"></span>
+    <br>
+<span> MeterInstalled:  </span><span th:text="${meterInstalled}"></span>
+    <br>
+</form>
+</body>
+</html>
