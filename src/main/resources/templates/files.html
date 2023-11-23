@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head>
+    <title>User File Paths</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>User File Paths</h1>
+<ul>
+    <li th:each="entry : ${userFilePath.entrySet()}">
+        <span th:text="${entry.key}"></span> :
+        <a th:href="'static/' + ${entry.value}" target="_blank">Download file</a>
+    </li>
+</ul>
+</body>
+</html>
