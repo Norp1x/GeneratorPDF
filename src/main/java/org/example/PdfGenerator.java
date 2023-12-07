@@ -1,21 +1,35 @@
 package org.example;
 
+import lombok.AllArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 @Component
+@AllArgsConstructor
+@EnableConfigurationProperties(FileConfiguration.class)
 public class PdfGenerator {
 
-    public static final String SAVE_PATH = "G:\\Project\\src\\main\\resources\\static\\";  // "/home/ec2-user/static/"
-    public static final String READ_FILE_PATH = "G:\\Project\\src\\main\\resources\\static\\";  // "/home/ec2-user/static/"
+//    @Value("${pdf.file.savepath}")
+//    public final String savePath;
+//    // "/home/ec2-user/static/"
+//    @Value("${pdf.file.path}")
+//    public final String readFilePath;
+//
+//    @Value("${pdf.font.path}")
+//    public final String fontFilePath;
+
+    private final FileConfiguration fileConfiguration;
+
+    private final PdfSaver pdfSaver = new PdfSaver();
+
+    // "/home/ec2-user/static/"
 
     public PDPageContentStream writeMeterDismantledType(String meterDismantled, PDPageContentStream meterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream meterDismantledTypeStream;
@@ -27,7 +41,8 @@ public class PdfGenerator {
         }
         return meterDismantledTypeStream;
     }
-        public PDPageContentStream writeMeterInstalledType(String meterDismantled, PDPageContentStream meterRow_2a, TextWriter textWriter) throws IOException {
+
+    public PDPageContentStream writeMeterInstalledType(String meterDismantled, PDPageContentStream meterRow_2a, TextWriter textWriter) throws IOException {
         PDPageContentStream meterInstalledTypeStream;
         if (meterDismantled.equalsIgnoreCase("Multical 603") || meterDismantled.equalsIgnoreCase("Multical 403")
                 || meterDismantled.equalsIgnoreCase("SCYLAR 548")) {
@@ -37,6 +52,7 @@ public class PdfGenerator {
         }
         return meterInstalledTypeStream;
     }
+
     public PDPageContentStream writeFlowMeterDismantledType(String flowMeterDismantled, PDPageContentStream flowMeterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream flowMeterDismantledTypeStream;
         if (flowMeterDismantled.equalsIgnoreCase("AXONIC") || flowMeterDismantled.equalsIgnoreCase("UNICO 2")) {
@@ -46,6 +62,7 @@ public class PdfGenerator {
         }
         return flowMeterDismantledTypeStream;
     }
+
     public PDPageContentStream writeFlowMeterInstalledType(String flowMeterInstalled, PDPageContentStream flowMeterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream flowMeterInstalledTypeStream;
         if (flowMeterInstalled.equalsIgnoreCase("AXONIC") || flowMeterInstalled.equalsIgnoreCase("UNICO 2")) {
@@ -56,150 +73,89 @@ public class PdfGenerator {
         return flowMeterInstalledTypeStream;
     }
 
-    PdfFileInfo generatePDF(String actionType1,
-                            String actionType2,
-                            String address,
-                            String date,
-                            String energy,
-                            String water,
-                            String flowConverter,
-                            String meterDismantled,
-                            String meterDismantledSerialNumber,
-                            String meterDismantledProductionYear,
-                            String meterDismantledRadioAddress,
-                            String meterDismantledImpulse,
-                            String meterInstalled,
-                            String meterInstalledSerialNumber,
-                            String meterInstalledProductionYear,
-                            String meterInstalledRadioAddress,
-                            String meterInstalledImpulse,
-                            String meterInstalledLegalizationDate,
-                            String flowMeterDismantled,
-                            String flowMeterDismantledSerialNumber,
-                            String flowMeterDismantledProductionYear,
-                            String flowMeterDismantledQN,
-                            String flowMeterDismantledDN,
-                            String flowMeterDismantledImpulse,
-                            String flowmeterInstalled,
-                            String installedFlowMeterSerialNumber,
-                            String installedFlowMeterProductionYear,
-                            String installedFlowMeterQN,
-                            String installedFlowMeterDN,
-                            String installedFlowMeterImpulse,
-                            String installedFlowMeterLegalizationDate) throws IOException {
+    PdfFileInfo generatePDF(Fields fields) throws IOException {
         PDDocument pdfFile = readTemplatePdf();
         PDPage firstPage = pdfFile.getPage(0);
-        TextWriter textWriter = new TextWriter();
+        TextWriter textWriter = new TextWriter(fileConfiguration.fontPath());
 
-        PDPageContentStream action1 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        switch (actionType1) {
-            case "change" -> {
-                PDPageContentStream change = textWriter.textWriterPDF(action1, "X", 150.5f, 153.5f, 18);
-                change.close();
-            }
-            case "restoration" -> {
-                PDPageContentStream restoration = textWriter.textWriterPDF(action1, "X", 386.5f, 153.5f, 18);
-                restoration.close();
-            }
-            case "legalization" -> {
-                PDPageContentStream legalization = textWriter.textWriterPDF(action1, "X", 538.5f, 153.5f, 18);
-                legalization.close();
-            }
-            default -> System.out.println("Action type not found");
-        }action1.close();
-
-        PDPageContentStream action2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        switch (actionType2) {
-            case "local" -> {
-                PDPageContentStream local = textWriter.textWriterPDF(action2, "X", 243.5f, 176.5f, 18);
-                local.close();
-            }
-            case "radio" -> {
-                PDPageContentStream radio = textWriter.textWriterPDF(action2, "X", 351.5f, 176.5f, 18);
-                radio.close();
-            }
-            case "auto" -> {
-                PDPageContentStream auto = textWriter.textWriterPDF(action2, "X", 465.5f, 176.5f, 18);
-                auto.close();
-            }
-            default -> System.out.println("Action type not found");
-        }action2.close();
+        writeFromRadioButton(fields.actionType1(), pdfFile, firstPage, textWriter);
+        writeFromRadioButton2(fields.actionType2(), pdfFile, firstPage, textWriter);
 
         PDPageContentStream addressLine = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream addressField = textWriter.textWriterPDF(addressLine, address, 142, 206, 19);
+        PDPageContentStream addressField = textWriter.textWriterPDF(addressLine, fields.address(), 142, 206, 19);
         addressField.close();
         addressLine.close();
 
         PDPageContentStream dateLine = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dateField = textWriter.textWriterPDF(dateLine, date, 142, 231, 19);
+        PDPageContentStream dateField = textWriter.textWriterPDF(dateLine, fields.date(), 142, 231, 19);
         dateField.close();
         dateLine.close();
 
         PDPageContentStream readingsBeforeService1 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream energyReadingsBefore = textWriter.textWriterPDF(readingsBeforeService1, energy, 174, 276.7f, 13);
+        PDPageContentStream energyReadingsBefore = textWriter.textWriterPDF(readingsBeforeService1, fields.energy(), 174, 276.7f, 13);
         energyReadingsBefore.close();
         readingsBeforeService1.close();
         PDPageContentStream readingsBeforeService2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream waterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService2, water, 291, 276.7f, 13);
+        PDPageContentStream waterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService2, fields.water(), 291, 276.7f, 13);
         waterReadingsBefore.close();
         readingsBeforeService2.close();
         PDPageContentStream readingsBeforeService3 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream flowConverterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService3, flowConverter, 471, 276.7f, 13);
+        PDPageContentStream flowConverterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService3, fields.flowConverter(), 471, 276.7f, 13);
         flowConverterReadingsBefore.close();
         readingsBeforeService3.close();
 
         PDPageContentStream meterRow_1a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledMeterType = writeMeterDismantledType(meterDismantled, meterRow_1a, textWriter);
+        PDPageContentStream dismantledMeterType = writeMeterDismantledType(fields.meterDismantled(), meterRow_1a, textWriter);
         dismantledMeterType.close();
         meterRow_1a.close();
 
         PDPageContentStream meterRow_1b = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledMeterSerialNumber = textWriter.textWriterPDF(meterRow_1b, meterDismantledSerialNumber, 202, 333, 13);
+        PDPageContentStream dismantledMeterSerialNumber = textWriter.textWriterPDF(meterRow_1b, fields.meterDismantledSerialNumber(), 202, 333, 13);
         dismantledMeterSerialNumber.close();
         meterRow_1b.close();
 
         PDPageContentStream meterRow_1c = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledMeterProductionYear = textWriter.textWriterPDF(meterRow_1c, meterDismantledProductionYear, 341, 333, 13);
+        PDPageContentStream dismantledMeterProductionYear = textWriter.textWriterPDF(meterRow_1c, fields.meterDismantledProductionYear(), 341, 333, 13);
         dismantledMeterProductionYear.close();
         meterRow_1c.close();
 
         PDPageContentStream meterRow_1d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledRadioAddress = textWriter.textWriterPDF(meterRow_1d, meterDismantledRadioAddress, 397, 333, 13);
+        PDPageContentStream dismantledRadioAddress = textWriter.textWriterPDF(meterRow_1d, fields.meterDismantledRadioAddress(), 397, 333, 13);
         dismantledRadioAddress.close();
         meterRow_1d.close();
 
         PDPageContentStream meterRow_1e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledMeterImpulse = textWriter.textWriterPDF(meterRow_1e, meterDismantledImpulse, 470, 333, 13);
+        PDPageContentStream dismantledMeterImpulse = textWriter.textWriterPDF(meterRow_1e, fields.meterDismantledImpulse(), 470, 333, 13);
         dismantledMeterImpulse.close();
         meterRow_1e.close();
 
         PDPageContentStream meterRow_2a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterType = writeMeterInstalledType(meterInstalled, meterRow_2a, textWriter);
+        PDPageContentStream installedMeterType = writeMeterInstalledType(fields.meterInstalled(), meterRow_2a, textWriter);
         installedMeterType.close();
         meterRow_2a.close();
 
         PDPageContentStream meterRow_2b = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterSerialNumber = textWriter.textWriterPDF(meterRow_2b, meterInstalledSerialNumber, 202, 357, 13);
+        PDPageContentStream installedMeterSerialNumber = textWriter.textWriterPDF(meterRow_2b, fields.meterInstalledSerialNumber(), 202, 357, 13);
         installedMeterSerialNumber.close();
         meterRow_2b.close();
 
         PDPageContentStream meterRow_2c = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterProductionYear = textWriter.textWriterPDF(meterRow_2c, meterInstalledProductionYear, 341, 357, 13);
+        PDPageContentStream installedMeterProductionYear = textWriter.textWriterPDF(meterRow_2c, fields.meterInstalledProductionYear(), 341, 357, 13);
         installedMeterProductionYear.close();
         meterRow_2c.close();
 
         PDPageContentStream meterRow_2d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterRadioAddress = textWriter.textWriterPDF(meterRow_2d, meterInstalledRadioAddress, 397, 357, 13);
+        PDPageContentStream installedMeterRadioAddress = textWriter.textWriterPDF(meterRow_2d, fields.meterInstalledRadioAddress(), 397, 357, 13);
         installedMeterRadioAddress.close();
         meterRow_2d.close();
 
         PDPageContentStream meterRow_2e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterImpulse = textWriter.textWriterPDF(meterRow_2e, meterInstalledImpulse, 470, 357, 13);
+        PDPageContentStream installedMeterImpulse = textWriter.textWriterPDF(meterRow_2e, fields.meterInstalledImpulse(), 470, 357, 13);
         installedMeterImpulse.close();
         meterRow_2e.close();
 
         PDPageContentStream meterRow_2f = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream legalizationDate = textWriter.textWriterPDF(meterRow_2f, meterInstalledLegalizationDate, 503.5f, 357, 13);
+        PDPageContentStream legalizationDate = textWriter.textWriterPDF(meterRow_2f, fields.meterInstalledLegalizationDate(), 503.5f, 357, 13);
         legalizationDate.close();
         meterRow_2f.close();
 
@@ -341,13 +297,53 @@ public class PdfGenerator {
         flowConverterReadingsAfter.close();
         readingsAfterService3.close();
 
-        PdfFileInfo fileInfo = savePdf(pdfFile);
+        PdfFileInfo fileInfo = pdfSaver.savePdf(pdfFile, fields.address(), fileConfiguration.savePath());
         pdfFile.close();
         return fileInfo;
     }
 
+    private void writeFromRadioButton2(final String actionType2, final PDDocument pdfFile, final PDPage firstPage, final TextWriter textWriter) throws IOException {
+        PDPageContentStream action2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+        switch (actionType2) {
+            case "local" -> {
+                PDPageContentStream local = textWriter.textWriterPDF(action2, "X", 243.5f, 176.5f, 18);
+                local.close();
+            }
+            case "radio" -> {
+                PDPageContentStream radio = textWriter.textWriterPDF(action2, "X", 351.5f, 176.5f, 18);
+                radio.close();
+            }
+            case "auto" -> {
+                PDPageContentStream auto = textWriter.textWriterPDF(action2, "X", 465.5f, 176.5f, 18);
+                auto.close();
+            }
+            default -> System.out.println("Action type not found");
+        }
+        action2.close();
+    }
+
+    private void writeFromRadioButton(final String actionType1, final PDDocument pdfFile, final PDPage firstPage, final TextWriter textWriter) throws IOException {
+        PDPageContentStream action1 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+        switch (actionType1) {
+            case "change" -> {
+                PDPageContentStream change = textWriter.textWriterPDF(action1, "X", 150.5f, 153.5f, 18);
+                change.close();
+            }
+            case "restoration" -> {
+                PDPageContentStream restoration = textWriter.textWriterPDF(action1, "X", 386.5f, 153.5f, 18);
+                restoration.close();
+            }
+            case "legalization" -> {
+                PDPageContentStream legalization = textWriter.textWriterPDF(action1, "X", 538.5f, 153.5f, 18);
+                legalization.close();
+            }
+            default -> System.out.println("Action type not found");
+        }
+        action1.close();
+    }
+
     private PDDocument readTemplatePdf() {
-        File oldFile = new File(READ_FILE_PATH + "PDF.pdf");
+        File oldFile = new File(fileConfiguration.readPath() + "PDF.pdf");
         PDDocument pdfFile = null;
         try {
             pdfFile = PDDocument.load(oldFile);
@@ -358,15 +354,5 @@ public class PdfGenerator {
         return pdfFile;
     }
 
-    private PdfFileInfo savePdf(final PDDocument pdfFile) throws IOException {
-        String uuid = UUID.randomUUID().toString();
-        String dateTime = new SimpleDateFormat("dd-MM-yyyy__HH-mm-ss").format(new Date());
-        PdfName pdfName = new PdfName( dateTime + "__" + PdfRequest.address + ".pdf");
-        PdfSavedPath savePath = new PdfSavedPath(SAVE_PATH + pdfName.value());
-        File toSave = new File(savePath.value());
-        pdfFile.save(toSave);
-        pdfFile.close();
-        System.out.println("PDF Created");
-        return new PdfFileInfo(pdfName, uuid);
-    }
+
 }

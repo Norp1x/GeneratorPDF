@@ -1,34 +1,35 @@
 package org.example;
 
-import jakarta.validation.Valid;
-import org.springframework.core.io.ByteArrayResource;
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.example.PdfGenerator.SAVE_PATH;
-
 @Controller
+@AllArgsConstructor
 public class PdfController {
     Map<String, String> savedFilesByUser = new HashMap<>();
 
     private final PdfGenerator pdfGenerator;
+    private final PdfSaver pdfSaver = new PdfSaver();
 
-    PdfController(final PdfGenerator pdfGenerator) {
-        this.pdfGenerator = pdfGenerator;
-    }
+//    @Value("${pdf.file.path}")
+//    public final String savePath;
+
+    private final FileConfiguration fileConfiguration;
 
     @GetMapping("/generatepdf")
     public String showForm(Model model) {
@@ -79,112 +80,52 @@ public class PdfController {
 
     @GetMapping(value = "/static/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException, URISyntaxException {
-        File oldFile = new File(SAVE_PATH + fileName);
-        return new ByteArrayResource(Files.readAllBytes(oldFile.toPath()));
+        return pdfSaver.saveToFile(fileName, fileConfiguration.savePath());
     }
 
     @PostMapping("/generatepdf")
-    public String generatePDF(@ModelAttribute PdfRequest pdfRequest) throws IOException {
-        String actionType1 = pdfRequest.getActionType1();
-        String actionType2 = pdfRequest.getActionType2();
-        String address = pdfRequest.getAddress();
-        String date = pdfRequest.getDate();
-        String energy = pdfRequest.getEnergy();
-        String water = pdfRequest.getWater();
-        String flowConverter = pdfRequest.getFlowConverter();
-        String meterDismantled = pdfRequest.getMeterDismantled();
-        String meterDismantledSerialNumber = pdfRequest.getMeterDismantledSerialNumber();
-        String meterDismantledProductionYear = pdfRequest.getMeterDismantledProductionYear();
-        String meterDismantledRadioAddress = pdfRequest.getMeterDismantledRadioAddress();
-        String meterDismantledImpulse = pdfRequest.getMeterDismantledImpulse();
-        String meterInstalled = pdfRequest.getMeterInstalled();
-        String meterInstalledSerialNumber = pdfRequest.getMeterInstalledSerialNumber();
-        String meterInstalledProductionYear = pdfRequest.getMeterInstalledProductionYear();
-        String meterInstalledRadioAddress = pdfRequest.getMeterInstalledRadioAddress();
-        String meterInstalledImpulse = pdfRequest.getMeterInstalledImpulse();
-        String meterInstalledLegalizationDate = pdfRequest.getMeterInstalledLegalizationDate();
-        String flowMeterDismantled = PdfRequest.getFlowMeterDismantled();
-        String flowMeterDismantledSerialNumber = PdfRequest.getFlowMeterDismantledSerialNumber();
-        String flowMeterDismantledProductionYear = PdfRequest.getFlowMeterDismantledProductionYear();
-        String flowMeterDismantledQN = PdfRequest.getFlowMeterDismantledQN();
-        String flowMeterDismantledDN = PdfRequest.getFlowMeterDismantledDN();
-        String flowMeterDismantledImpulse = PdfRequest.getFlowMeterDismantledImpulse();
-        String flowmeterInstalled = PdfRequest.getFlowmeterInstalled();
-        String flowMeterInstalledSerialNumber = PdfRequest.getFlowMeterInstalledSerialNumber();
-        String flowMeterInstalledProductionYear = PdfRequest.getFlowMeterInstalledProductionYear();
-        String flowMeterInstalledQN = PdfRequest.getFlowMeterInstalledQN();
-        String flowMeterInstalledDN = PdfRequest.getFlowMeterInstalledDN();
-        String flowMeterInstalledImpulse = PdfRequest.getFlowMeterInstalledImpulse();
-        String flowMeterInstalledLegalizationDate = PdfRequest.getFlowMeterInstalledLegalizationDate();
-        PdfFileInfo fileToDownload = pdfGenerator.generatePDF(actionType1,
-                actionType2,
-                address,
-                date,
-                energy,
-                water,
-                flowConverter,
-                meterDismantled,
-                meterDismantledSerialNumber,
-                meterDismantledProductionYear,
-                meterDismantledRadioAddress,
-                meterDismantledImpulse,
-                meterInstalled,
-                meterInstalledSerialNumber,
-                meterInstalledProductionYear,
-                meterInstalledRadioAddress,
-                meterInstalledImpulse,
-                meterInstalledLegalizationDate,
-                flowMeterDismantled,
-                flowMeterDismantledSerialNumber,
-                flowMeterDismantledProductionYear,
-                flowMeterDismantledQN,
-                flowMeterDismantledDN,
-                flowMeterDismantledImpulse,
-                flowmeterInstalled,
-                flowMeterInstalledSerialNumber,
-                flowMeterInstalledProductionYear,
-                flowMeterInstalledQN,
-                flowMeterInstalledDN,
-                flowMeterInstalledImpulse,
-                flowMeterInstalledLegalizationDate);
+    public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) throws IOException {
+        Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
+        PdfFileInfo fileToDownload = pdfGenerator.generatePDF(fields);
         System.out.println(fileToDownload);
         savedFilesByUser.put(fileToDownload.id(), fileToDownload.fileName().value());
+        model.addAttribute("PdfRequest", fields);
         return "redirect:/processform";
     }
 
     @GetMapping("/processform")
     public String showForm2(Model model) throws IOException {
-        model.addAttribute("PdfRequest", new PdfRequest(PdfRequest.actionType1,
-                PdfRequest.actionType2,
-                PdfRequest.address,
-                PdfRequest.date,
-                PdfRequest.energy,
-                PdfRequest.water,
-                PdfRequest.flowConverter,
-                PdfRequest.meterDismantled,
-                PdfRequest.meterDismantledSerialNumber,
-                PdfRequest.meterDismantledProductionYear,
-                PdfRequest.meterDismantledRadioAddress,
-                PdfRequest.meterDismantledImpulse,
-                PdfRequest.meterInstalled,
-                PdfRequest.meterInstalledSerialNumber,
-                PdfRequest.meterInstalledProductionYear,
-                PdfRequest.meterInstalledRadioAddress,
-                PdfRequest.meterInstalledImpulse,
-                PdfRequest.meterInstalledLegalizationDate,
-                PdfRequest.flowMeterDismantled,
-                PdfRequest.flowMeterDismantledSerialNumber,
-                PdfRequest.flowMeterDismantledProductionYear,
-                PdfRequest.flowMeterDismantledQN,
-                PdfRequest.flowMeterDismantledDN,
-                PdfRequest.flowMeterDismantledImpulse,
-                PdfRequest.flowmeterInstalled,
-                PdfRequest.flowMeterInstalledSerialNumber,
-                PdfRequest.flowMeterInstalledProductionYear,
-                PdfRequest.flowMeterInstalledQN,
-                PdfRequest.flowMeterInstalledDN,
-                PdfRequest.flowMeterInstalledImpulse,
-                PdfRequest.flowMeterInstalledLegalizationDate));
+//        model.addAttribute("PdfRequest", new PdfRequest(PdfRequest.actionType1,
+//                PdfRequest.actionType2,
+//                PdfRequest.address,
+//                PdfRequest.date,
+//                PdfRequest.energy,
+//                PdfRequest.water,
+//                PdfRequest.flowConverter,
+//                PdfRequest.meterDismantled,
+//                PdfRequest.meterDismantledSerialNumber,
+//                PdfRequest.meterDismantledProductionYear,
+//                PdfRequest.meterDismantledRadioAddress,
+//                PdfRequest.meterDismantledImpulse,
+//                PdfRequest.meterInstalled,
+//                PdfRequest.meterInstalledSerialNumber,
+//                PdfRequest.meterInstalledProductionYear,
+//                PdfRequest.meterInstalledRadioAddress,
+//                PdfRequest.meterInstalledImpulse,
+//                PdfRequest.meterInstalledLegalizationDate,
+//                PdfRequest.flowMeterDismantled,
+//                PdfRequest.flowMeterDismantledSerialNumber,
+//                PdfRequest.flowMeterDismantledProductionYear,
+//                PdfRequest.flowMeterDismantledQN,
+//                PdfRequest.flowMeterDismantledDN,
+//                PdfRequest.flowMeterDismantledImpulse,
+//                PdfRequest.flowmeterInstalled,
+//                PdfRequest.flowMeterInstalledSerialNumber,
+//                PdfRequest.flowMeterInstalledProductionYear,
+//                PdfRequest.flowMeterInstalledQN,
+//                PdfRequest.flowMeterInstalledDN,
+//                PdfRequest.flowMeterInstalledImpulse,
+//                PdfRequest.flowMeterInstalledLegalizationDate));
         return "submitform";
     }
 }

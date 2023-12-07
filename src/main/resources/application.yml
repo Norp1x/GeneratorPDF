@@ -1,7 +1,17 @@
-spring.thymeleaf.check-template-location=true
-spring.thymeleaf.prefix=classpath:/templates/
-spring.thymeleaf.suffix=.html
-spring.thymeleaf.mode=LEGACYHTML5
-spring.thymeleaf.encoding=UTF-8
-spring.thymeleaf.content-type=text/html
-spring.thymeleaf.cache=false
+#spring.thymeleaf.check-template-location=true
+#spring.thymeleaf.prefix=classpath:/templates/
+#spring.thymeleaf.suffix=.html
+#spring.thymeleaf.mode=LEGACYHTML5
+#spring.thymeleaf.encoding=UTF-8
+#spring.thymeleaf.content-type=text/html
+#spring.thymeleaf.cache=false
+
+#pdf:
+#  fontPath: 'G:\\Project\\src\\main\\resources\\DejaVuSerifCondensed-BoldItalic.ttf'
+#  readPath: 'G:\\Project\\src\\main\\resources\\static\\'
+#  savePath: 'G:\\Project\\src\\main\\resources\\static\\'
+
+pdf:
+  fontPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/DejaVuSerifCondensed-BoldItalic.ttf
+  readPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/
+  savePath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/

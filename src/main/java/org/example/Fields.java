@@ -1,23 +1,21 @@
 package org.example;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
-public record PdfRequest(
+@Builder
+public record Fields(
         String actionType1,
         String actionType2,
-        @NotNull
         String address,
         String date,
         String energy,
         String water,
         String flowConverter,
-        @NotNull
         String meterDismantled,
         String meterDismantledSerialNumber,
         String meterDismantledProductionYear,
         String meterDismantledRadioAddress,
         String meterDismantledImpulse,
-        @NotNull
         String meterInstalled,
         String meterInstalledSerialNumber,
         String meterInstalledProductionYear,
@@ -31,13 +29,11 @@ public record PdfRequest(
         String flowMeterDismantledDN,
         String flowMeterDismantledImpulse,
         String flowmeterInstalled,
-        String flowMeterInstalledSerialNumber,
-        String flowMeterInstalledProductionYear,
-        String flowMeterInstalledQN,
-        String flowMeterInstalledDN,
-        String flowMeterInstalledImpulse,
-        String flowMeterInstalledLegalizationDate
+        String installedFlowMeterSerialNumber,
+        String installedFlowMeterProductionYear,
+        String installedFlowMeterQN,
+        String installedFlowMeterDN,
+        String installedFlowMeterImpulse,
+        String installedFlowMeterLegalizationDate
 ) {
-
 }
-
