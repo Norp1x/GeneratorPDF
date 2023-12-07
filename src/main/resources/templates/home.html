@@ -4,13 +4,63 @@
     <title>PDF Generator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<h1>Form</h1>
+<body style="font-size: 21px">
+<h1>Create new PDF File</h1>
 <form action="#" th:action="@{/generatepdf}" th:object="${PdfRequest}" method="post">
-    <p>Enter address: <input type="text" th:field="*{address}" /></p>
-    <p>Enter Dismantled Meter: <input type="text" th:field="*{meterDismantled}" /></p>
-    <p>Enter Installed Meter: <input type="text" th:field="*{meterInstalled}" /></p>
+    <p>Action Type: <br>
+       || Change:   <input type="radio" name="action1"  th:field="*{actionType1}" value="change">
+       || Restoration:   <input type="radio" name="action1" th:field="*{actionType1}" value="restoration">
+       || Legalization:   <input type="radio" name="action1" th:field="*{actionType1}" value="legalization" th:checked="true"> || </p>
+    <p>Reading Method: <br>
+       || Local:   <input type="radio" name="action2"  th:field="*{actionType2}" value="local">
+       || Radio:   <input type="radio" name="action2"  th:field="*{actionType2}" value="radio">
+       || Auto:   <input type="radio" name="action2"  th:field="*{actionType2}" value="auto" th:checked="true"> ||</p>
+
+    <p> Address: <input style="height: 22px" type="text" th:field="*{address}" />
+<!--    <div class="alert alert-warning" th:if="${#fields.hasErrors('address')}" th:errors="*{getAddress()}"></div></p>-->
+
+    <p>Date:  <input style="height: 22px" type="date" id="date" name="date" th:field="*{date}">
+    Energy readings: <input style="height: 22px" size="8px" type="text" th:field="*{energy}" />
+    Water readings: <input style="height: 22px" size="8px" type="text" th:field="*{water}" />
+    Flow converter readings: <input style="height: 22px" size="8px" type="text" th:field="*{flowConverter}" /></p>
+    <label> Dismantled Meter:</label>
+    <select  th:field="*{meterDismantled}">
+        <option value="">select option</option>
+        <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
+    </select>
+        Dismantled Meter S/N: <input style="height: 22px" type="text" th:field="*{meterDismantledSerialNumber}" />
+       <label> Dismantled Meter Prod.Year:</label>
+    <select th:field="*{meterDismantledProductionYear}">
+        <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                th:value="${year}" th:text="${year}">
+        </option>
+    </select>
+        Dismantled Meter RadioAdr: <input style="height: 22px" type="text" th:field="*{meterDismantledRadioAddress}" />
+    <label> Dismantled Meter Imp.:</label>
+    <select  th:field="*{meterDismantledImpulse}">
+        <option value="">select option</option>
+        <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+    </select>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+
+    <div><label> Installed Meter:</label>
+        <select  th:field="*{meterInstalled}">
+            <option value="">select option</option>
+            <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Installed Meter S/N: <input style="height: 22px" type="text" th:field="*{meterInstalledSerialNumber}" />
+        <label> Installed Meter Prod.Year:</label>
+        <select th:field="*{meterInstalledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        Installed Meter RadioAdr: <input style="height: 22px" type="text" th:field="*{meterInstalledRadioAddress}" />
+        Installed Meter Imp.: <input style="height: 22px" type="text" th:field="*{meterInstalledImpulse}" />
+        Installed Meter Legalization Year: <input style="height: 22px" type="text" th:field="*{meterInstalledLegalizationDate}" /></div>
+
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
+<button type="button" onclick="window.location.href='/files'">Show files</button>
 </body>
 </html>

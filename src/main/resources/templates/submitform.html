@@ -4,15 +4,31 @@
     <title>PDF Generator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<h1>Form</h1>
+<body style="font-size: 28px">
+
+<h1>Summary</h1>
 <form th:action="@{/processform}" th:object="${PdfRequest}" method="get">
-<span> Address:  </span><span th:text="${PdfRequest.address}"></span>
+
+    <span> Action:  </span><b><span th:text="${PdfRequest.actionType1}"></span></b>
     <br>
-<span> MeterDismantled:  </span><span th:text="${PdfRequest.meterDismantled}"></span>
+    <span> Reading method:  </span><b><span th:text="${PdfRequest.actionType2}"></span></b>
     <br>
-<span> MeterInstalled:  </span><span th:text="${PdfRequest.meterInstalled}"></span>
+    <span> Address:  </span><b><span th:text="${PdfRequest.address}"></span></b>
     <br>
+    <span> Date:  </span><b><span th:text="${PdfRequest.date}"></span></b>
+    <br><br>
+    <span> Energy:  </span><b><span th:text="${PdfRequest.energy}"></span></b>
+    <br><br>
+    <span> Water:  </span><b><span th:text="${PdfRequest.water}"></span></b>
+    <br><br>
+    <span> FlowConverter:  </span><b><span th:text="${PdfRequest.flowConverter}"></span></b>
+    <br><br>
+    <span> MeterDismantled:  </span><b><span th:text="${PdfRequest.meterDismantled}"></span></b>
+    <br><br>
+    <span> MeterInstalled:  </span> <b><span th:text="${PdfRequest.meterInstalled}"></span></b>
+    <br><br>
+    <button type="button" onclick="window.location.href='/generatepdf'">Generate new PDF</button>
+    <button type="button" onclick="window.location.href='/files'">Show files</button>
 </form>
 </body>
 </html>

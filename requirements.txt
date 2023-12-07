@@ -1,4 +1,7 @@
-- aplikacja używana głównie mobilnie
-- aplikacja używana przez przeglądarkę
+- aplikacja używana głównie mobilnie +
+- aplikacja używana przez przeglądarkę +
 - aplikacja polega na wypełnianiu formularzy/checkbox'ów/list rozwijanych przez klienta
-- aplikacja zapisze plik w formacie PDF na urządzeniu klienta
+- aplikacja zapisze plik w formacie PDF na urządzeniu klienta +
+- aplikacja musi być dostępna publicznie pod adresem URL
+- aplikacja musi wyświetlać pliki do pobrania wraz z datą utworzenia +
+- aplikacja musi zapisywać pliki nazywane adresem węzła z pliku PDF wraz z datą utworzenia i autorem (12-12-2023-10-30-20-ADRES-AUTOR.pdf) //TODO napisać test jednostkowy
