@@ -21,7 +21,7 @@ import java.util.Map;
 @Controller
 @AllArgsConstructor
 public class PdfController {
-    Map<String, String> savedFilesByUser = new HashMap<>();
+    private final Map<String, String> savedFilesByUser = new HashMap<>();
 
     private final PdfGenerator pdfGenerator;
     private final PdfSaver pdfSaver = new PdfSaver();
@@ -64,9 +64,42 @@ public class PdfController {
         flowMeters.add("AXONIC");
         flowMeters.add("UNICO 2");
         model.addAttribute("flowMeters", flowMeters);
-        model.addAttribute("PdfRequest", new PdfRequest("legalization",
-                "auto", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "",
+        List<String> qN = new ArrayList<String>();
+        qN.add("1,5");
+        qN.add("2,5");
+        qN.add("3,5");
+        qN.add("6");
+        qN.add("10");
+        qN.add("15");
+        qN.add("40");
+        model.addAttribute("qN", qN);
+        List<String> dN = new ArrayList<String>();
+        dN.add("15");
+        dN.add("20");
+        dN.add("25");
+        dN.add("32");
+        dN.add("40");
+        dN.add("50");
+        dN.add("80");
+        model.addAttribute("dN", dN);
+        List<String> sensorPT = new ArrayList<String>();
+        sensorPT.add("100");
+        sensorPT.add("500");
+        model.addAttribute("sensorPT", sensorPT);
+        List<String> sensorType = new ArrayList<String>();
+        sensorType.add("TS 200");
+        sensorType.add("TS 400");
+        sensorType.add("TSH202");
+        sensorType.add("TOP-E 41");
+        sensorType.add("TOP 146.1");
+        sensorType.add("TOP 146.2");
+        sensorType.add("TOP 1068");
+        sensorType.add("61-63-D0-052-218");
+        sensorType.add("61-63-D0-082-218");
+        model.addAttribute("sensorType", sensorType);
+        model.addAttribute("PdfRequest", new PdfRequest("legalization", "auto", "", "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
                 "", "", "", "", "", ""));
         return "home";
@@ -86,46 +119,17 @@ public class PdfController {
     @PostMapping("/generatepdf")
     public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) throws IOException {
         Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
+        model.addAttribute("PdfRequest", fields);
         PdfFileInfo fileToDownload = pdfGenerator.generatePDF(fields);
         System.out.println(fileToDownload);
         savedFilesByUser.put(fileToDownload.id(), fileToDownload.fileName().value());
-        model.addAttribute("PdfRequest", fields);
-        return "redirect:/processform";
+        return "redirect:/files";
     }
 
     @GetMapping("/processform")
-    public String showForm2(Model model) throws IOException {
-//        model.addAttribute("PdfRequest", new PdfRequest(PdfRequest.actionType1,
-//                PdfRequest.actionType2,
-//                PdfRequest.address,
-//                PdfRequest.date,
-//                PdfRequest.energy,
-//                PdfRequest.water,
-//                PdfRequest.flowConverter,
-//                PdfRequest.meterDismantled,
-//                PdfRequest.meterDismantledSerialNumber,
-//                PdfRequest.meterDismantledProductionYear,
-//                PdfRequest.meterDismantledRadioAddress,
-//                PdfRequest.meterDismantledImpulse,
-//                PdfRequest.meterInstalled,
-//                PdfRequest.meterInstalledSerialNumber,
-//                PdfRequest.meterInstalledProductionYear,
-//                PdfRequest.meterInstalledRadioAddress,
-//                PdfRequest.meterInstalledImpulse,
-//                PdfRequest.meterInstalledLegalizationDate,
-//                PdfRequest.flowMeterDismantled,
-//                PdfRequest.flowMeterDismantledSerialNumber,
-//                PdfRequest.flowMeterDismantledProductionYear,
-//                PdfRequest.flowMeterDismantledQN,
-//                PdfRequest.flowMeterDismantledDN,
-//                PdfRequest.flowMeterDismantledImpulse,
-//                PdfRequest.flowmeterInstalled,
-//                PdfRequest.flowMeterInstalledSerialNumber,
-//                PdfRequest.flowMeterInstalledProductionYear,
-//                PdfRequest.flowMeterInstalledQN,
-//                PdfRequest.flowMeterInstalledDN,
-//                PdfRequest.flowMeterInstalledImpulse,
-//                PdfRequest.flowMeterInstalledLegalizationDate));
+    public String showForm2(@ModelAttribute("PdfRequest") PdfRequest pdfRequest, Model model) throws IOException {
+        Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
+        model.addAttribute("pdfRequest", fields);
         return "submitform";
     }
 }

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Generator PDF</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}" />
+</head>
+<body>
+<h1>Utwórz nowy plik PDF</h1>
+<form th:action="@{/generatepdf}" th:object="${PdfRequest}" method="post">
+    <p>Typ akcji: <br>
+        || Wymiana:   <input type="radio" name="action1"  th:field="*{actionType1}" value="change" >
+        || Przywrócenie:   <input type="radio" name="action1" th:field="*{actionType1}" value="restoration">
+        || Legalizacja:   <input type="radio" name="action1" th:field="*{actionType1}" value="legalization" th:checked="true"> || </p>
+    <p>Metoda odczytu: <br>
+        || Lokalny:   <input type="radio" name="action2"  th:field="*{actionType2}" value="local">
+        || Radiowy:   <input type="radio" name="action2"  th:field="*{actionType2}" value="radio">
+        || Auto:   <input type="radio" name="action2"  th:field="*{actionType2}" value="auto" th:checked="true"> ||</p>
+
+    <p> Adres: <input style="height: 22px" type="text" th:field="*{address}" />
+
+    <p>Data:  <input style="height: 22px" type="date" id="date" name="date" th:field="*{date}">
+        Odczyty energii: <input style="height: 22px" size="8px" type="text" th:field="*{energyBefore}" />
+        Odczyty wody: <input style="height: 22px" size="8px" type="text" th:field="*{waterBefore}" />
+        Odczyty przepływomierza: <input style="height: 22px" size="8px" type="text" th:field="*{flowConverterBefore}" /></p>
+    <div><label> Zdemontowany licznik:</label>
+        <select  th:field="*{meterDismantled}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zdemontowany licznik S/N: <input style="height: 22px" type="text" th:field="*{meterDismantledSerialNumber}" />
+        <label> Zdemontowany licznik Rok prod.:</label>
+        <select th:field="*{meterDismantledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        Zdemontowany licznik RadioAdr: <input style="height: 22px" size="7px" type="text" th:field="*{meterDismantledRadioAddress}" />
+        <label> Zdemontowany licznik Imp.:</label>
+        <select  th:field="*{meterDismantledImpulse}">
+            <option value="">wybierz impuls</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select></div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+
+    <div><label> Zainstalowany licznik:</label>
+        <select  th:field="*{meterInstalled}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zainstalowany licznik S/N: <input style="height: 22px" type="text" th:field="*{meterInstalledSerialNumber}" />
+        <label> Zainstalowany licznik Rok prod.:</label>
+        <select th:field="*{meterInstalledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        Installed Meter RadioAdr: <input style="height: 22px" size="7px" type="text" th:field="*{meterInstalledRadioAddress}" />
+        <label> Zdemontowany licznik Imp.:</label>
+        <select  th:field="*{meterInstalledImpulse}">
+            <option value="">wybierz impuls</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label> Rok legalizacji zainstalowanego licznika:</label> <input style="height: 22px" type="text" th:field="*{meterInstalledLegalizationDate}" /></div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label>Zdemontowany przepływomierz:</label>
+        <select th:field="*{flowMeterDismantled}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${flowMeters}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zdemontowany przepływomierz S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterDismantledSerialNumber}" />
+        <label>Rok produkcji zdemontowanego przepływomierza:</label>
+        <select th:field="*{flowMeterDismantledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        <label>Zdemontowany przepływomierz Qn:</label>
+        <select th:field="*{flowMeterDismantledQN}">
+            <option value="">wybierz Qn</option>
+            <option th:each="option : ${qN}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <label>Zdemontowany przepływomierz DN:</label>
+        <select th:field="*{flowMeterDismantledDN}">
+            <option value="">wybierz DN</option>
+            <option th:each="option : ${dN}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <br>
+        <label>Zdemontowany przepływomierz Imp:</label>
+        <select th:field="*{flowMeterDismantledImpulse}">
+            <option value="">wybierz impuls</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select></div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label>Zainstalowany przepływomierz:</label>
+        <select th:field="*{flowMeterInstalled}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${flowMeters}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zainstalowany przepływomierz S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterInstalledSerialNumber}" />
+        <label>Rok produkcji zainstalowanego przepływomierza:</label>
+        <select th:field="*{flowMeterInstalledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        <label>Zainstalowany przepływomierz Qn:</label>
+        <select th:field="*{flowMeterInstalledQN}">
+            <option value="">wybierz Qn</option>
+            <option th:each="option : ${qN}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <label>Zainstalowany przepływomierz DN:</label>
+        <select th:field="*{flowMeterInstalledDN}">
+            <option value="">wybierz DN</option>
+            <option th:each="option : ${dN}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <label>Zainstalowany przepływomierz Imp:</label>
+        <select th:field="*{flowMeterInstalledImpulse}">
+            <option value="">wybierz impuls</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        Rok legalizacji zainstalowanego przepływomierza: <input style="height: 22px" type="text" th:field="*{flowMeterInstalledLegalizationDate}" />
+    </div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label>Zdemontowany czujnik temperatury PT</label>
+        <select th:field="*{tempSensorDismantledPT}">
+            <option value="">wybierz PT</option>
+            <option th:each="option : ${sensorPT}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <label>Typ czujnika temperatury</label>
+        <select th:field="*{tempSensorDismantledType}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${sensorType}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zdemontowany Czujnik temp.1 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber1}" />
+        Zdemontowany Czujnik temp.2 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber2}" />
+        <br>
+        Rok produkcji zdemontowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledProductionYear}" />
+    </div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label>Zainstalowany czujnik temperatury PT</label>
+        <select th:field="*{tempSensorInstalledPT}">
+            <option value="">wybierz PT</option>
+            <option th:each="option : ${sensorPT}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        <label>Typ czujnika temperatury</label>
+        <select th:field="*{tempSensorInstalledType}">
+            <option value="">wybierz typ</option>
+            <option th:each="option : ${sensorType}" th:value="${option}" th:text="${option}" ></option>
+        </select>
+        Zainstalowany Czujnik temp.1 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber1}" />
+        Zainstalowany Czujnik temp.2 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber2}" />
+        Rok produkcji zainstalowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledProductionYear}" />
+        <br>
+        Rok legalizacji zainstalowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledLegalizationDate}" />
+    </div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div>
+        Inne czynności serwisowe: <input style="height: 22px" size="40px" type="text" th:field="*{otherActionsService}" />
+        <br><p><b>_______________________________________________________________________________________________________</b></p>
+<!--        <p>Odczyty energii po: <input style="height: 22px" size="8px" type="text" th:field="*{energyAfter}" th:class="${#strings.isEmpty(*{energyAfter})} ? 'empty-field' : 'filled-field'" /></p>-->
+        Odczyty energii po: <input style="height: 22px" size="8px" type="text" th:field="*{energyAfter}" />
+        Odczyty wody po: <input style="height: 22px" size="8px" type="text" th:field="*{waterAfter}" />
+        Odczyty przepływomierza po: <input style="height: 22px" size="8px" type="text" th:field="*{flowConverterAfter}"/>
+    </div>
+    <p><input type="submit" value="Wyślij" />
+        <br><br><input type="reset" value="Resetuj" /></p>
+
+</form>
+<button type="button" onclick="window.location.href='/files'">Pokaż pliki</button>
+</body>
+</html>

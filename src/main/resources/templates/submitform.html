@@ -7,25 +7,25 @@
 <body style="font-size: 28px">
 
 <h1>Summary</h1>
-<form th:action="@{/processform}" th:object="${PdfRequest}" method="get">
+<form th:action="@{/processform}" th:object="${pdfRequest}" method="get">
 
-    <span> Action:  </span><b><span th:text="${PdfRequest.actionType1}"></span></b>
+    <span> Action:  </span><b><span th:text="${pdfRequest.actionType1}"></span></b>
     <br>
-    <span> Reading method:  </span><b><span th:text="${PdfRequest.actionType2}"></span></b>
+    <span> Reading method:  </span><b><span th:text="${pdfRequest.actionType2}"></span></b>
     <br>
-    <span> Address:  </span><b><span th:text="${PdfRequest.address}"></span></b>
+    <span> Address:  </span><b><span th:text="${pdfRequest.address}"></span></b>
     <br>
-    <span> Date:  </span><b><span th:text="${PdfRequest.date}"></span></b>
+    <span> Date:  </span><b><span th:text="${pdfRequest.date}"></span></b>
     <br><br>
-    <span> Energy:  </span><b><span th:text="${PdfRequest.energy}"></span></b>
+    <span> Energy:  </span><b><span th:text="${pdfRequest.energyBefore}"></span></b>
     <br><br>
-    <span> Water:  </span><b><span th:text="${PdfRequest.water}"></span></b>
+    <span> Water:  </span><b><span th:text="${pdfRequest.waterBefore}"></span></b>
     <br><br>
-    <span> FlowConverter:  </span><b><span th:text="${PdfRequest.flowConverter}"></span></b>
+    <span> FlowConverter:  </span><b><span th:text="${pdfRequest.flowConverterBefore}"></span></b>
     <br><br>
-    <span> MeterDismantled:  </span><b><span th:text="${PdfRequest.meterDismantled}"></span></b>
+    <span> MeterDismantled:  </span><b><span th:text="${pdfRequest.meterDismantled}"></span></b>
     <br><br>
-    <span> MeterInstalled:  </span> <b><span th:text="${PdfRequest.meterInstalled}"></span></b>
+    <span> MeterInstalled:  </span> <b><span th:text="${pdfRequest.meterInstalled}"></span></b>
     <br><br>
     <button type="button" onclick="window.location.href='/generatepdf'">Generate new PDF</button>
     <button type="button" onclick="window.location.href='/files'">Show files</button>

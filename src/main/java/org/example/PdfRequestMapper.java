@@ -8,37 +8,48 @@ class PdfRequestMapper {
                 .actionType2(pdfRequest.actionType2())
                 .address(pdfRequest.address())
                 .date(pdfRequest.date())
-//        String actionType1 = pdfRequest.actionType1();
-//        String actionType2 = pdfRequest.actionType2();
-//        String address = pdfRequest.address();
-//        String date = pdfRequest.date();
-//        String energy = pdfRequest.energy();
-//        String water = pdfRequest.water();
-//        String flowConverter = pdfRequest.flowConverter();
-//        String meterDismantled = pdfRequest.meterDismantled();
-//        String meterDismantledSerialNumber = pdfRequest.meterDismantledSerialNumber();
-//        String meterDismantledProductionYear = pdfRequest.meterDismantledProductionYear();
-//        String meterDismantledRadioAddress = pdfRequest.meterDismantledRadioAddress();
-//        String meterDismantledImpulse = pdfRequest.meterDismantledImpulse();
-//        String meterInstalled = pdfRequest.meterInstalled();
-//        String meterInstalledSerialNumber = pdfRequest.meterInstalledSerialNumber();
-//        String meterInstalledProductionYear = pdfRequest.meterInstalledProductionYear();
-//        String meterInstalledRadioAddress = pdfRequest.meterInstalledRadioAddress();
-//        String meterInstalledImpulse = pdfRequest.meterInstalledImpulse();
-//        String meterInstalledLegalizationDate = pdfRequest.meterInstalledLegalizationDate();
-//        String flowMeterDismantled = pdfRequest.flowMeterDismantled();
-//        String flowMeterDismantledSerialNumber = pdfRequest.flowMeterDismantledSerialNumber();
-//        String flowMeterDismantledProductionYear = pdfRequest.flowMeterDismantledProductionYear();
-//        String flowMeterDismantledQN = pdfRequest.flowMeterDismantledQN();
-//        String flowMeterDismantledDN = pdfRequest.flowMeterDismantledDN();
-//        String flowMeterDismantledImpulse = pdfRequest.flowMeterDismantledImpulse();
-//        String flowmeterInstalled = pdfRequest.flowmeterInstalled();
-//        String flowMeterInstalledSerialNumber = pdfRequest.flowMeterInstalledSerialNumber();
-//        String flowMeterInstalledProductionYear = pdfRequest.flowMeterInstalledProductionYear();
-//        String flowMeterInstalledQN = pdfRequest.flowMeterInstalledQN();
-//        String flowMeterInstalledDN = pdfRequest.flowMeterInstalledDN();
-//        String flowMeterInstalledImpulse = pdfRequest.flowMeterInstalledImpulse();
-//        String flowMeterInstalledLegalizationDate = pdfRequest.flowMeterInstalledLegalizationDate();
+                .energyBefore(pdfRequest.energyBefore())
+                .waterBefore(pdfRequest.waterBefore())
+                .flowConverterBefore(pdfRequest.flowConverterBefore())
+                .meterDismantled(pdfRequest.meterDismantled())
+                .meterDismantledSerialNumber(pdfRequest.meterDismantledSerialNumber())
+                .meterDismantledProductionYear(pdfRequest.meterDismantledProductionYear())
+                .meterDismantledRadioAddress(pdfRequest.meterDismantledRadioAddress())
+                .meterDismantledImpulse(pdfRequest.meterDismantledImpulse())
+                .meterInstalled(pdfRequest.meterInstalled())
+                .meterInstalledSerialNumber(pdfRequest.meterInstalledSerialNumber())
+                .meterInstalledProductionYear(pdfRequest.meterInstalledProductionYear())
+                .meterInstalledRadioAddress(pdfRequest.meterInstalledRadioAddress())
+                .meterInstalledImpulse(pdfRequest.meterInstalledImpulse())
+                .meterInstalledLegalizationDate(pdfRequest.meterInstalledLegalizationDate())
+                .flowMeterDismantled(pdfRequest.flowMeterDismantled())
+                .flowMeterDismantledSerialNumber(pdfRequest.flowMeterDismantledSerialNumber())
+                .flowMeterDismantledProductionYear(pdfRequest.flowMeterDismantledProductionYear())
+                .flowMeterDismantledQN(pdfRequest.flowMeterDismantledQN())
+                .flowMeterDismantledDN(pdfRequest.flowMeterDismantledDN())
+                .flowMeterDismantledImpulse(pdfRequest.flowMeterDismantledImpulse())
+                .flowMeterInstalled(pdfRequest.flowMeterInstalled())
+                .flowMeterInstalledSerialNumber(pdfRequest.flowMeterInstalledSerialNumber())
+                .flowMeterInstalledProductionYear(pdfRequest.flowMeterInstalledProductionYear())
+                .flowMeterInstalledQN(pdfRequest.flowMeterInstalledQN())
+                .flowMeterInstalledDN(pdfRequest.flowMeterInstalledDN())
+                .flowMeterInstalledImpulse(pdfRequest.flowMeterInstalledImpulse())
+                .flowMeterInstalledLegalizationDate(pdfRequest.flowMeterInstalledLegalizationDate())
+                .tempSensorDismantledPT(pdfRequest.tempSensorDismantledPT())
+                .tempSensorDismantledType(pdfRequest.tempSensorDismantledType())
+                .tempSensorDismantledSerialNumber1(pdfRequest.tempSensorDismantledSerialNumber1())
+                .tempSensorDismantledSerialNumber2(pdfRequest.tempSensorDismantledSerialNumber2())
+                .tempSensorDismantledProductionYear(pdfRequest.tempSensorDismantledProductionYear())
+                .tempSensorInstalledPT(pdfRequest.tempSensorInstalledPT())
+                .tempSensorInstalledType(pdfRequest.tempSensorInstalledType())
+                .tempSensorInstalledSerialNumber1(pdfRequest.tempSensorInstalledSerialNumber1())
+                .tempSensorInstalledSerialNumber2(pdfRequest.tempSensorInstalledSerialNumber2())
+                .tempSensorInstalledProductionYear(pdfRequest.tempSensorInstalledProductionYear())
+                .tempSensorInstalledLegalizationDate(pdfRequest.tempSensorInstalledLegalizationDate())
+                .otherActionsService(pdfRequest.otherActionsService())
+                .energyAfter(pdfRequest.energyAfter())
+                .waterAfter(pdfRequest.waterAfter())
+                .flowConverterAfter(pdfRequest.flowConverterAfter())
                 .build();
     }
 }

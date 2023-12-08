@@ -1,23 +1,18 @@
 package org.example;
 
-import jakarta.validation.constraints.NotNull;
-
 public record PdfRequest(
         String actionType1,
         String actionType2,
-        @NotNull
         String address,
         String date,
-        String energy,
-        String water,
-        String flowConverter,
-        @NotNull
+        String energyBefore,
+        String waterBefore,
+        String flowConverterBefore,
         String meterDismantled,
         String meterDismantledSerialNumber,
         String meterDismantledProductionYear,
         String meterDismantledRadioAddress,
         String meterDismantledImpulse,
-        @NotNull
         String meterInstalled,
         String meterInstalledSerialNumber,
         String meterInstalledProductionYear,
@@ -30,14 +25,30 @@ public record PdfRequest(
         String flowMeterDismantledQN,
         String flowMeterDismantledDN,
         String flowMeterDismantledImpulse,
-        String flowmeterInstalled,
+        String flowMeterInstalled,
         String flowMeterInstalledSerialNumber,
         String flowMeterInstalledProductionYear,
         String flowMeterInstalledQN,
         String flowMeterInstalledDN,
         String flowMeterInstalledImpulse,
-        String flowMeterInstalledLegalizationDate
+        String flowMeterInstalledLegalizationDate,
+        String tempSensorDismantledPT,
+        String tempSensorDismantledType,
+        String tempSensorDismantledSerialNumber1,
+        String tempSensorDismantledSerialNumber2,
+        String tempSensorDismantledProductionYear,
+        String tempSensorInstalledPT,
+        String tempSensorInstalledType,
+        String tempSensorInstalledSerialNumber1,
+        String tempSensorInstalledSerialNumber2,
+        String tempSensorInstalledProductionYear,
+        String tempSensorInstalledLegalizationDate,
+        String otherActionsService,
+        String energyAfter,
+        String waterAfter,
+        String flowConverterAfter
 ) {
-
 }
+
+
 
