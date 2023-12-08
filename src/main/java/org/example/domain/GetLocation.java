@@ -1,4 +1,4 @@
-package org.example;
+package org.example.domain;
 
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;

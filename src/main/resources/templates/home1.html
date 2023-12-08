@@ -44,7 +44,7 @@
         </select><br>
         <label> Rok legalizacji zainstalowanego licznika:</label>
         <select th:field="*{meterInstalledLegalizationDate1}">
-            <option th:each="year : ${#numbers.sequence(T(org.example.DateUtils).addYearsToCurrent(-1), T(org.example.DateUtils).addYearsToCurrent(5))}"
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
@@ -103,7 +103,7 @@
         </select><br>
         <label>Rok legalizacji zainstalowanego przepływomierza:</label>
         <select th:field="*{flowMeterInstalledLegalizationDate1}">
-            <option th:each="year : ${#numbers.sequence(T(org.example.DateUtils).addYearsToCurrent(-1), T(org.example.DateUtils).addYearsToCurrent(5))}"
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
@@ -157,7 +157,7 @@
         Rok produkcji zainstalowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledProductionYear}" /><br>
         Rok legalizacji zainstalowanego czujnika temperatury:
         <select th:field="*{tempSensorInstalledLegalizationDate1}">
-            <option th:each="year : ${#numbers.sequence(T(org.example.DateUtils).addYearsToCurrent(-1), T(org.example.DateUtils).addYearsToCurrent(5))}"
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>

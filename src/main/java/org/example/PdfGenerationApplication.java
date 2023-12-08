@@ -6,12 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 
 @SpringBootApplication
-public class Main {
-    static final float MAX_HEIGHT_OF_PDF_FILE_IN_PIXELS = 842;
-
+public class PdfGenerationApplication {
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(PdfGenerationApplication.class, args);
 
     }
 

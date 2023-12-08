@@ -1,4 +1,4 @@
-package org.example;
+package org.example.domain;
 
 public record PdfRequest(
         String actionType1,

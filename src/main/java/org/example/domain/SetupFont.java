@@ -1,4 +1,4 @@
-package org.example;
+package org.example.domain;
 
 import lombok.AllArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;

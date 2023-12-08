@@ -1,12 +1,13 @@
-package org.example;
+package org.example.infrastructure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "pdf")
-record FileConfiguration(
+public record FileConfiguration(
         String fontPath,
         String readPath,
-        String savePath
+        String savePath,
+        String existingGeneratedPdfFilesPath
 ) {
 
 

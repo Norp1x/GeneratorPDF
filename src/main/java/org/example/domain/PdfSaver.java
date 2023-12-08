@@ -1,7 +1,8 @@
-package org.example;
+package org.example.domain;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+@Component
 class PdfSaver {
 
     PdfFileInfo savePdf(final PDDocument pdfFile, final String address, final String savePath) throws IOException {

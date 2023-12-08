@@ -1,6 +1,13 @@
-package org.example;
+package org.example.infrastructure;
 
 import lombok.AllArgsConstructor;
+import org.example.domain.Fields;
+import org.example.domain.PdfFileInfo;
+import org.example.domain.PdfFilesReader;
+import org.example.domain.PdfGenerator;
+import org.example.domain.PdfGeneratorFacade;
+import org.example.domain.PdfRequest;
+import org.example.domain.PdfRequestMapper;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,9 +29,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class PdfController {
     private final Map<String, String> savedFilesByUser = new HashMap<>();
+    private final PdfFilesReader pdfFilesReader;
 
     private final PdfGenerator pdfGenerator;
-    private final PdfSaver pdfSaver = new PdfSaver();
+    //    private final PdfSaver pdfSaver = new PdfSaver();
+    private final PdfGeneratorFacade facade;
 
 //    @Value("${pdf.file.path}")
 //    public final String savePath;
@@ -107,13 +116,15 @@ public class PdfController {
 
     @GetMapping("/files")
     public String showAllFiles(Model model) {
+        Map<String, String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
+        savedFilesByUser.putAll(oldFiles);
         model.addAttribute("userFilePath", savedFilesByUser);
         return "files";
     }
 
     @GetMapping(value = "/static/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException, URISyntaxException {
-        return pdfSaver.saveToFile(fileName, fileConfiguration.savePath());
+        return facade.saveToFile(fileName, fileConfiguration.savePath());
     }
 
     @PostMapping("/generatepdf")

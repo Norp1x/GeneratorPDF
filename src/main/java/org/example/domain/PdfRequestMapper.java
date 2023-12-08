@@ -1,8 +1,8 @@
-package org.example;
+package org.example.domain;
 
-class PdfRequestMapper {
+public class PdfRequestMapper {
 
-    static Fields mapFromPdfRequestToFields(final PdfRequest pdfRequest) {
+    public static Fields mapFromPdfRequestToFields(final PdfRequest pdfRequest) {
         return Fields.builder()
                 .actionType1(pdfRequest.actionType1())
                 .actionType2(pdfRequest.actionType2())

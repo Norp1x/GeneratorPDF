@@ -11,12 +11,13 @@
 #  readPath: 'G:\\Project\\src\\main\\resources\\static\\'
 #  savePath: 'G:\\Project\\src\\main\\resources\\static\\'
 
-#pdf:
-#  fontPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/DejaVuSerifCondensed-BoldItalic.ttf
-#  readPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/
-#  savePath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/
-
 pdf:
-  fontPath: /home/ec2-user/static/DejaVuSerifCondensed-BoldItalic.ttf
-  readPath: /home/ec2-user/static/
-  savePath: /home/ec2-user/static/
+  fontPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/DejaVuSerifCondensed-BoldItalic.ttf
+  readPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/
+  savePath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/generatedpdfs/
+  existingGeneratedPdfFilesPath: /Users/bartlomiejkalka/Downloads/asdasd/src/main/resources/static/generatedpdfs/
+#
+#pdf:
+#  fontPath: /home/ec2-user/static/DejaVuSerifCondensed-BoldItalic.ttf
+#  readPath: /home/ec2-user/static/
+#  savePath: /home/ec2-user/static/

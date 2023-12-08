@@ -1,9 +1,10 @@
-package org.example;
+package org.example.domain;
 
 import lombok.AllArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.example.infrastructure.FileConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -92,7 +93,7 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
         return tempSensorInstalledTypeStream;
     }
 
-    PdfFileInfo generatePDF(Fields fields) throws IOException {
+    public PdfFileInfo generatePDF(Fields fields) throws IOException {
         PDDocument pdfFile = readTemplatePdf();
         PDPage firstPage = pdfFile.getPage(0);
         TextWriter textWriter = new TextWriter(fileConfiguration.fontPath());
