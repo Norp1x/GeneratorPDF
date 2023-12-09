@@ -72,6 +72,26 @@ public class PdfGenerator {
         return flowMeterInstalledTypeStream;
     }
 
+public PDPageContentStream writeTempSensorDismantledType(String tempSensorDismantled, PDPageContentStream tempSensorRow_1b, TextWriter textWriter) throws IOException {
+        PDPageContentStream tempSensorDismantledTypeStream;
+        if (tempSensorDismantled.equalsIgnoreCase("61-63-D0-052-218") || tempSensorDismantled.equalsIgnoreCase("61-63-D0-082-218")) {
+            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 248, 503, 8);
+        } else {
+            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 256, 503, 13);
+        }
+        return tempSensorDismantledTypeStream;
+    }
+
+    public PDPageContentStream writeTempSensorInstalledType(String tempSensorInstalled, PDPageContentStream tempSensorRow_2b, TextWriter textWriter) throws IOException {
+        PDPageContentStream tempSensorInstalledTypeStream;
+        if (tempSensorInstalled.equalsIgnoreCase("61-63-D0-052-218") || tempSensorInstalled.equalsIgnoreCase("61-63-D0-082-218")) {
+            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 248, 540, 8);
+        } else {
+            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 256, 540, 13);
+        }
+        return tempSensorInstalledTypeStream;
+    }
+
     PdfFileInfo generatePDF(Fields fields) throws IOException {
         PDDocument pdfFile = readTemplatePdf();
         PDPage firstPage = pdfFile.getPage(0);
@@ -86,7 +106,7 @@ public class PdfGenerator {
         addressLine.close();
 
         PDPageContentStream dateLine = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dateField = textWriter.textWriterPDF(dateLine, fields.date(), 142, 231, 19);
+        PDPageContentStream dateField = textWriter.textWriterPDF(dateLine, fields.date(), 142, 231, 16);
         dateField.close();
         dateLine.close();
 
@@ -154,9 +174,14 @@ public class PdfGenerator {
         meterRow_2e.close();
 
         PDPageContentStream meterRow_2f = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedMeterLegalizationDate = textWriter.textWriterPDF(meterRow_2f, fields.meterInstalledLegalizationDate(), 503.5f, 357, 13);
-        installedMeterLegalizationDate.close();
+        PDPageContentStream installedMeterLegalizationDate1 = textWriter.textWriterPDF(meterRow_2f, fields.meterInstalledLegalizationDate1(), 503.5f, 357, 13);
+        installedMeterLegalizationDate1.close();
         meterRow_2f.close();
+
+        PDPageContentStream meterRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream installedMeterLegalizationDate2 = textWriter.textWriterPDF(meterRow_2g, "-" + fields.meterInstalledLegalizationDate2(), 535.5f, 357, 13);
+        installedMeterLegalizationDate2.close();
+        meterRow_2g.close();
 
         PDPageContentStream flowMeterRow_1a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
         PDPageContentStream dismantledFlowMeterType = writeFlowMeterDismantledType(fields.flowMeterDismantled(), flowMeterRow_1a, textWriter);
@@ -219,9 +244,14 @@ public class PdfGenerator {
         flowMeterRow_2f.close();
 
         PDPageContentStream flowMeterRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedFlowMeterLegalizationDate = textWriter.textWriterPDF(flowMeterRow_2g, fields.flowMeterInstalledLegalizationDate(), 503.5f, 437, 13);
-        installedFlowMeterLegalizationDate.close();
+        PDPageContentStream installedFlowMeterLegalizationDate1 = textWriter.textWriterPDF(flowMeterRow_2g, fields.flowMeterInstalledLegalizationDate1(), 503.5f, 437, 13);
+        installedFlowMeterLegalizationDate1.close();
         flowMeterRow_2g.close();
+
+        PDPageContentStream flowMeterRow_2h = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream installedFlowMeterLegalizationDate2 = textWriter.textWriterPDF(flowMeterRow_2h, "-" + fields.flowMeterInstalledLegalizationDate2(), 535.5f, 437, 13);
+        installedFlowMeterLegalizationDate2.close();
+        flowMeterRow_2h.close();
 
         PDPageContentStream tempSensorRow_1a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
         PDPageContentStream dismantledTempSensorPT = textWriter.textWriterPDF(tempSensorRow_1a, fields.tempSensorDismantledPT(), 200, 503, 13);
@@ -229,19 +259,28 @@ public class PdfGenerator {
         tempSensorRow_1a.close();
 
         PDPageContentStream tempSensorRow_1b = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledTempSensorType = textWriter.textWriterPDF(tempSensorRow_1b, fields.tempSensorDismantledType(), 256, 503, 13);
+        PDPageContentStream dismantledTempSensorType = writeTempSensorDismantledType(fields.tempSensorDismantledType(), tempSensorRow_1b, textWriter);
         dismantledTempSensorType.close();
         tempSensorRow_1b.close();
 
         PDPageContentStream tempSensorRow_1c = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1(), 335, 492, 11);
+        PDPageContentStream dismantledTempSensorSerialNumber1;
+        PDPageContentStream dismantledTempSensorSerialNumber2;
+        if (!fields.tempSensorDismantledSerialNumber1().isEmpty()) {
+            dismantledTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1() + "/1", 335, 492, 11);
+            dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1() + "/2", 335, 511, 11);
+        } else {
+            dismantledTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1(), 335, 492, 11);
+            dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1(), 335, 511, 11);
+            }
         dismantledTempSensorSerialNumber1.close();
+        dismantledTempSensorSerialNumber2.close();
         tempSensorRow_1c.close();
 
-        PDPageContentStream tempSensorRow_1d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1d, fields.tempSensorDismantledSerialNumber2(), 335, 511, 11);
-        dismantledTempSensorSerialNumber2.close();
-        tempSensorRow_1d.close();
+//        PDPageContentStream tempSensorRow_1d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+//        PDPageContentStream dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1d, fields.tempSensorDismantledSerialNumber1() + "/2", 335, 511, 11);
+//        dismantledTempSensorSerialNumber2.close();
+//        tempSensorRow_1d.close();
 
         PDPageContentStream tempSensorRow_1e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
         PDPageContentStream dismantledTempSensorProductionYear = textWriter.textWriterPDF(tempSensorRow_1e, fields.tempSensorDismantledProductionYear(), 450, 503, 12);
@@ -254,19 +293,29 @@ public class PdfGenerator {
         tempSensorRow_2a.close();
 
         PDPageContentStream tempSensorRow_2b = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedTempSensorType2 = textWriter.textWriterPDF(tempSensorRow_2b, fields.tempSensorInstalledType(), 256, 540, 13);
+        PDPageContentStream installedTempSensorType2 = writeTempSensorInstalledType(fields.tempSensorInstalledType(), tempSensorRow_2b, textWriter);
         installedTempSensorType2.close();
         tempSensorRow_2b.close();
 
         PDPageContentStream tempSensorRow_2c = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_2c, fields.tempSensorInstalledSerialNumber1(), 335, 529, 11);
+        PDPageContentStream installedTempSensorSerialNumber1;
+        PDPageContentStream installedTempSensorSerialNumber2;
+        if (!fields.tempSensorInstalledSerialNumber1().isEmpty()) {
+            installedTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_2c, fields.tempSensorInstalledSerialNumber1() + "/1", 335, 529, 11);
+            installedTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_2c, fields.tempSensorInstalledSerialNumber1() + "/2", 335, 547, 11);
+
+        } else {
+            installedTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_2c, fields.tempSensorInstalledSerialNumber1(), 335, 529, 11);
+            installedTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_2c, fields.tempSensorInstalledSerialNumber1(), 335, 547, 11);
+        }
         installedTempSensorSerialNumber1.close();
+        installedTempSensorSerialNumber2.close();
         tempSensorRow_2c.close();
 
-        PDPageContentStream tempSensorRow_2d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_2d, fields.tempSensorInstalledSerialNumber2(), 335, 547, 11);
-        installedTempSensorSerialNumber2.close();
-        tempSensorRow_2d.close();
+//        PDPageContentStream tempSensorRow_2d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+//        PDPageContentStream installedTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_2d, fields.tempSensorInstalledSerialNumber1() + "/2", 335, 547, 11);
+//        installedTempSensorSerialNumber2.close();
+//        tempSensorRow_2d.close();
 
         PDPageContentStream tempSensorRow_2e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
         PDPageContentStream installedTempSensorProductionYear = textWriter.textWriterPDF(tempSensorRow_2e, fields.tempSensorInstalledProductionYear(), 450, 540, 12);
@@ -274,9 +323,14 @@ public class PdfGenerator {
         tempSensorRow_2e.close();
 
         PDPageContentStream tempSensorRow_2f = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-        PDPageContentStream installedTempSensorLegalizationDate = textWriter.textWriterPDF(tempSensorRow_2f, fields.tempSensorInstalledLegalizationDate(), 503.5f, 540, 13);
-        installedTempSensorLegalizationDate.close();
+        PDPageContentStream installedTempSensorLegalizationDate1 = textWriter.textWriterPDF(tempSensorRow_2f, fields.tempSensorInstalledLegalizationDate1(), 503.5f, 540, 13);
+        installedTempSensorLegalizationDate1.close();
         tempSensorRow_2f.close();
+
+        PDPageContentStream tempSensorRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream installedTempSensorLegalizationDate2 = textWriter.textWriterPDF(tempSensorRow_2g, "-" + fields.tempSensorInstalledLegalizationDate2(), 535.5f, 540, 13);
+        installedTempSensorLegalizationDate2.close();
+        tempSensorRow_2g.close();
 
         PDPageContentStream otherField = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
         PDPageContentStream otherServiceActions = textWriter.textWriterPDF(otherField, fields.otherActionsService(), 92, 586, 13);

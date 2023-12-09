@@ -99,10 +99,10 @@ public class PdfController {
         model.addAttribute("sensorType", sensorType);
         model.addAttribute("PdfRequest", new PdfRequest("legalization", "auto", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
-                "", "", "", "", "", ""));
-        return "home";
+                "", "", "", "", "", "", ""));
+        return "home1";
     }
 
     @GetMapping("/files")

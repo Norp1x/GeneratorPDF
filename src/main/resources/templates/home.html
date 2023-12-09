@@ -30,7 +30,7 @@
         Dismantled Meter S/N: <input style="height: 22px" type="text" th:field="*{meterDismantledSerialNumber}" />
        <label> Dismantled Meter Prod.Year:</label>
     <select th:field="*{meterDismantledProductionYear}">
-        <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+        <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                 th:value="${year}" th:text="${year}">
         </option>
     </select>
@@ -50,7 +50,7 @@
         Installed Meter S/N: <input style="height: 22px" type="text" th:field="*{meterInstalledSerialNumber}" />
         <label> Installed Meter Prod.Year:</label>
         <select th:field="*{meterInstalledProductionYear}">
-            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
@@ -70,7 +70,7 @@
         Dismantled FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterDismantledSerialNumber}" />
         <label>Dismantled FlowConverter Prod.Year:</label>
         <select th:field="*{flowMeterDismantledProductionYear}">
-            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
@@ -98,7 +98,7 @@
         Installed FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterInstalledSerialNumber}" />
         <label>Installed FlowConverter Prod.Year:</label>
         <select th:field="*{flowMeterInstalledProductionYear}">
-            <option th:each="year : ${#numbers.sequence(1995, #dates.year(#dates.createNow()))}"
+            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
