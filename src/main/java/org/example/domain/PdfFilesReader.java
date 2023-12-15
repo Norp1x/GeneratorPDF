@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.infrastructure.FileConfiguration;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,12 +19,9 @@ class PdfFilesReader {
         String path = fileConfiguration.existingGeneratedPdfFilesPath();
         List<String> files = listFilesInDirectory.listAllPdfFilesInDirectory(path);
         return files.stream()
-                .sorted()
                 .collect(Collectors.toMap(
                         fileName -> UUID.randomUUID().toString(),
-                        fileName -> fileName,
-                        (odlValue, newValue) -> odlValue,
-                        LinkedHashMap::new
+                        fileName -> fileName
                 ));
     }
 }

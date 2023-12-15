@@ -38,7 +38,4 @@ public class FileConfiguration{
     private String formatPath(String path){
         return path.replace("/", File.separator);
     }
-
-
-
 }

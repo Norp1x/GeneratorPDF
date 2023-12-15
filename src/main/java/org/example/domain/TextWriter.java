@@ -2,7 +2,6 @@ package org.example.domain;
 
 import lombok.AllArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.example.PdfGenerationApplication;
 
 import java.awt.*;
 import java.io.IOException;

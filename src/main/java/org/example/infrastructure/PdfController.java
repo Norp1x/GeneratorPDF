@@ -1,22 +1,12 @@
 package org.example.infrastructure;
 
 import lombok.AllArgsConstructor;
-import org.example.domain.Fields;
-import org.example.domain.PdfFileInfo;
-import org.example.domain.PdfFilesReader;
-import org.example.domain.PdfGenerator;
-import org.example.domain.PdfGeneratorFacade;
-import org.example.domain.PdfRequest;
-import org.example.domain.PdfRequestMapper;
+import org.example.domain.*;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,14 +20,8 @@ import java.util.Map;
 public class PdfController {
     private final Map<String, String> savedFilesByUser = new HashMap<>();
     private final PdfFilesReader pdfFilesReader;
-
     private final PdfGenerator pdfGenerator;
-    //    private final PdfSaver pdfSaver = new PdfSaver();
     private final PdfGeneratorFacade facade;
-
-//    @Value("${pdf.file.path}")
-//    public final String savePath;
-
     private final FileConfiguration fileConfiguration;
 
     @GetMapping("/generatepdf")

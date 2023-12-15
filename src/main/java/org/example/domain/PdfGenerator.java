@@ -16,20 +16,8 @@ import java.io.IOException;
 @EnableConfigurationProperties(FileConfiguration.class)
 public class PdfGenerator {
 
-//    @Value("${pdf.file.savepath}")
-//    public final String savePath;
-//    // "/home/ec2-user/static/"
-//    @Value("${pdf.file.path}")
-//    public final String readFilePath;
-//
-//    @Value("${pdf.font.path}")
-//    public final String fontFilePath;
-
     private final FileConfiguration fileConfiguration;
-
     private final PdfSaver pdfSaver = new PdfSaver();
-
-    // "/home/ec2-user/static/"
 
     public PDPageContentStream writeMeterDismantledType(String meterDismantled, PDPageContentStream meterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream meterDismantledTypeStream;
@@ -280,11 +268,6 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             dismantledTempSensorSerialNumber2.close();
             tempSensorRow_1c.close();
 
-//        PDPageContentStream tempSensorRow_1d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-//        PDPageContentStream dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1d, fields.tempSensorDismantledSerialNumber1() + "/2", 335, 511, 11);
-//        dismantledTempSensorSerialNumber2.close();
-//        tempSensorRow_1d.close();
-
             PDPageContentStream tempSensorRow_1e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
             PDPageContentStream dismantledTempSensorProductionYear = textWriter.textWriterPDF(tempSensorRow_1e, fields.tempSensorDismantledProductionYear(), 450, 503, 12);
             dismantledTempSensorProductionYear.close();
@@ -314,11 +297,6 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             installedTempSensorSerialNumber1.close();
             installedTempSensorSerialNumber2.close();
             tempSensorRow_2c.close();
-
-//        PDPageContentStream tempSensorRow_2d = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-//        PDPageContentStream installedTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_2d, fields.tempSensorInstalledSerialNumber1() + "/2", 335, 547, 11);
-//        installedTempSensorSerialNumber2.close();
-//        tempSensorRow_2d.close();
 
             PDPageContentStream tempSensorRow_2e = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
             PDPageContentStream installedTempSensorProductionYear = textWriter.textWriterPDF(tempSensorRow_2e, fields.tempSensorInstalledProductionYear(), 450, 540, 12);
