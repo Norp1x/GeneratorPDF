@@ -14,7 +14,7 @@ public class SetupFont {
     private final String fontFilePath;
 
     PDPageContentStream setupFont(PDPageContentStream contentStream, float fontSize) throws IOException {
-        File fontFile = new File(fontFilePath); // "/home/ec2-user/static/DejaVuSerifCondensed-BoldItalic.ttf"
+        File fontFile = new File(fontFilePath);
         contentStream.setFont(PDType0Font.load(new PDDocument(), fontFile), fontSize);
         contentStream.setLeading(16.0f);
         return contentStream;
