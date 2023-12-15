@@ -26,7 +26,7 @@ public class PdfController {
 
     @GetMapping("/generatepdf")
     public String showForm(Model model) {
-        List<String> meters = new ArrayList<String>();
+        List<String> meters = new ArrayList<>();
         meters.add("CF 51");
         meters.add("CF 55");
         meters.add("CF ECHO");
@@ -37,7 +37,7 @@ public class PdfController {
         meters.add("MULTICAL 403");
         meters.add("MULTICAL 603");
         model.addAttribute("meters", meters);
-        List<String> impulse = new ArrayList<String>();
+        List<String> impulse = new ArrayList<>();
         impulse.add("2,5");
         impulse.add("5");
         impulse.add("7,5");
@@ -48,7 +48,7 @@ public class PdfController {
         impulse.add("100");
         impulse.add("500");
         model.addAttribute("impulse", impulse);
-        List<String> flowMeters = new ArrayList<String>();
+        List<String> flowMeters = new ArrayList<>();
         flowMeters.add("US ECHO II");
         flowMeters.add("CF ECHO II");
         flowMeters.add("SONO 2500CT");
@@ -57,7 +57,7 @@ public class PdfController {
         flowMeters.add("AXONIC");
         flowMeters.add("UNICO 2");
         model.addAttribute("flowMeters", flowMeters);
-        List<String> qN = new ArrayList<String>();
+        List<String> qN = new ArrayList<>();
         qN.add("1,5");
         qN.add("2,5");
         qN.add("3,5");
@@ -66,7 +66,7 @@ public class PdfController {
         qN.add("15");
         qN.add("40");
         model.addAttribute("qN", qN);
-        List<String> dN = new ArrayList<String>();
+        List<String> dN = new ArrayList<>();
         dN.add("15");
         dN.add("20");
         dN.add("25");
@@ -75,11 +75,11 @@ public class PdfController {
         dN.add("50");
         dN.add("80");
         model.addAttribute("dN", dN);
-        List<String> sensorPT = new ArrayList<String>();
+        List<String> sensorPT = new ArrayList<>();
         sensorPT.add("100");
         sensorPT.add("500");
         model.addAttribute("sensorPT", sensorPT);
-        List<String> sensorType = new ArrayList<String>();
+        List<String> sensorType = new ArrayList<>();
         sensorType.add("TS 200");
         sensorType.add("TS 400");
         sensorType.add("TSH202");

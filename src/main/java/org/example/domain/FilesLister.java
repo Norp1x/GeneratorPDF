@@ -1,9 +1,7 @@
 package org.example.domain;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FilesLister {
@@ -12,8 +10,9 @@ public class FilesLister {
         if (!(directory.exists() && directory.isDirectory())) {
             return Collections.emptyList();
         }
-        return Arrays.stream(directory.listFiles())
+        Set<String> uniqueSortedFiles = Arrays.stream(directory.listFiles())
                 .map(File::getName)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(TreeSet::new));
+        return new ArrayList<>(uniqueSortedFiles);
     }
 }
