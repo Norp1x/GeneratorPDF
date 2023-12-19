@@ -81,10 +81,8 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
         return tempSensorInstalledTypeStream;
     }
 
-    public PdfFileInfo generatePDF(Fields fields) throws IOException {
-        PDDocument pdfFile = null;
-        try {
-            pdfFile = readTemplatePdf();
+    public PdfFileInfo generatePDF(Fields fields) {
+        try (PDDocument pdfFile = readTemplatePdf()) {
             PDPage firstPage = pdfFile.getPage(0);
             TextWriter textWriter = new TextWriter(fileConfiguration.fontPath());
 
@@ -263,7 +261,7 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             } else {
                 dismantledTempSensorSerialNumber1 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1(), 335, 492, 11);
                 dismantledTempSensorSerialNumber2 = textWriter.textWriterPDF(tempSensorRow_1c, fields.tempSensorDismantledSerialNumber1(), 335, 511, 11);
-                }
+            }
             dismantledTempSensorSerialNumber1.close();
             dismantledTempSensorSerialNumber2.close();
             tempSensorRow_1c.close();
@@ -336,10 +334,6 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             return fileInfo;
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (pdfFile != null) {
-                pdfFile.close();
-            }
         }
     }
 

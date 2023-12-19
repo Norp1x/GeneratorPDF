@@ -7,9 +7,9 @@
 <body>
 <h1>Lista plików do pobrania:</h1>
 <ul>
-    <li th:each="entry : ${userFilePath.entrySet()}">
-        <span th:text="${entry.value}"></span> :
-        <a th:href="'static/' + ${entry.value}" target="_blank">Download</a>
+    <li th:each="entry : ${userFilePath}">
+        <span th:text="${entry}"></span> :
+        <a th:href="'static/' + ${entry}" target="_blank">Download</a>
     </li>
 </ul>
 <button type="button" onclick="window.location.href='/generatepdf'">Generate new PDF</button>
