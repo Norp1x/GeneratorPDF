@@ -9,7 +9,7 @@ public class FilesLister {
         if (!(directory.exists() && directory.isDirectory())) {
             return Collections.emptyList();
         }
-        List<String> files = Arrays.asList(Objects.requireNonNull(Objects.requireNonNull(directory.list())));
+        List<String> files = Arrays.asList(Objects.requireNonNull(directory.list()));
         files.sort(Comparator.reverseOrder());
         return files;
     }
