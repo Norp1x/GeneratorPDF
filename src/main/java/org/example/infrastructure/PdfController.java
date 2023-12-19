@@ -9,16 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@SuppressWarnings({"SpellCheckingInspection", "SameReturnValue"})
 @Controller
 @AllArgsConstructor
 public class PdfController {
-    private final Map<String, String> savedFilesByUser = new HashMap<>();
+    private final Set<String> savedFilesByUser = new LinkedHashSet<>();
     private final PdfFilesReader pdfFilesReader;
     private final PdfGenerator pdfGenerator;
     private final PdfGeneratorFacade facade;
@@ -26,7 +23,7 @@ public class PdfController {
 
     @GetMapping("/generatepdf")
     public String showForm(Model model) {
-        List<String> meters = new ArrayList<String>();
+        List<String> meters = new ArrayList<>();
         meters.add("CF 51");
         meters.add("CF 55");
         meters.add("CF ECHO");
@@ -37,7 +34,7 @@ public class PdfController {
         meters.add("MULTICAL 403");
         meters.add("MULTICAL 603");
         model.addAttribute("meters", meters);
-        List<String> impulse = new ArrayList<String>();
+        List<String> impulse = new ArrayList<>();
         impulse.add("2,5");
         impulse.add("5");
         impulse.add("7,5");
@@ -48,7 +45,7 @@ public class PdfController {
         impulse.add("100");
         impulse.add("500");
         model.addAttribute("impulse", impulse);
-        List<String> flowMeters = new ArrayList<String>();
+        List<String> flowMeters = new ArrayList<>();
         flowMeters.add("US ECHO II");
         flowMeters.add("CF ECHO II");
         flowMeters.add("SONO 2500CT");
@@ -57,7 +54,7 @@ public class PdfController {
         flowMeters.add("AXONIC");
         flowMeters.add("UNICO 2");
         model.addAttribute("flowMeters", flowMeters);
-        List<String> qN = new ArrayList<String>();
+        List<String> qN = new ArrayList<>();
         qN.add("1,5");
         qN.add("2,5");
         qN.add("3,5");
@@ -66,7 +63,7 @@ public class PdfController {
         qN.add("15");
         qN.add("40");
         model.addAttribute("qN", qN);
-        List<String> dN = new ArrayList<String>();
+        List<String> dN = new ArrayList<>();
         dN.add("15");
         dN.add("20");
         dN.add("25");
@@ -75,11 +72,11 @@ public class PdfController {
         dN.add("50");
         dN.add("80");
         model.addAttribute("dN", dN);
-        List<String> sensorPT = new ArrayList<String>();
+        List<String> sensorPT = new ArrayList<>();
         sensorPT.add("100");
         sensorPT.add("500");
         model.addAttribute("sensorPT", sensorPT);
-        List<String> sensorType = new ArrayList<String>();
+        List<String> sensorType = new ArrayList<>();
         sensorType.add("TS 200");
         sensorType.add("TS 400");
         sensorType.add("TSH202");
@@ -100,29 +97,30 @@ public class PdfController {
 
     @GetMapping("/files")
     public String showAllFiles(Model model) {
-        Map<String, String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
-        savedFilesByUser.putAll(oldFiles);
+        savedFilesByUser.clear();
+        Set<String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
+        savedFilesByUser.addAll(oldFiles);
         model.addAttribute("userFilePath", savedFilesByUser);
         return "files";
     }
 
     @GetMapping(value = "/static/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException, URISyntaxException {
+    public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException {
         return facade.saveToFile(fileName, fileConfiguration.savePath());
     }
 
     @PostMapping("/generatepdf")
-    public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) throws IOException {
+    public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) {
         Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
         model.addAttribute("PdfRequest", fields);
         PdfFileInfo fileToDownload = pdfGenerator.generatePDF(fields);
         System.out.println(fileToDownload);
-        savedFilesByUser.put(fileToDownload.id(), fileToDownload.fileName().value());
+        savedFilesByUser.add(fileToDownload.fileName().value());
         return "redirect:/files";
     }
 
     @GetMapping("/processform")
-    public String showForm2(@ModelAttribute("PdfRequest") PdfRequest pdfRequest, Model model) throws IOException {
+    public String showForm2(@ModelAttribute("PdfRequest") PdfRequest pdfRequest, Model model) {
         Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
         model.addAttribute("pdfRequest", fields);
         return "submitform";
