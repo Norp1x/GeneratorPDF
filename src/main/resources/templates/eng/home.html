@@ -3,6 +3,7 @@
 <head>
     <title>PDF Generator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}" />
 </head>
 <body style="font-size: 16px">
 <h1>Create new PDF File</h1>
@@ -22,137 +23,166 @@
     Energy readings: <input style="height: 22px" size="8px" type="text" th:field="*{energyBefore}" />
     Water readings: <input style="height: 22px" size="8px" type="text" th:field="*{waterBefore}" />
     Flow converter readings: <input style="height: 22px" size="8px" type="text" th:field="*{flowConverterBefore}" /></p>
-    <div><label> Dismantled Meter:</label>
-    <select  th:field="*{meterDismantled}">
-        <option value="">select type</option>
-        <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
-    </select>
-        Dismantled Meter S/N: <input style="height: 22px" type="text" th:field="*{meterDismantledSerialNumber}" />
-       <label> Dismantled Meter Prod.Year:</label>
-    <select th:field="*{meterDismantledProductionYear}">
-        <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
-                th:value="${year}" th:text="${year}">
-        </option>
-    </select>
-        Dismantled Meter RadioAdr: <input style="height: 22px" size="7px" type="text" th:field="*{meterDismantledRadioAddress}" />
-    <label> Dismantled Meter Imp.:</label>
-    <select  th:field="*{meterDismantledImpulse}">
-        <option value="">select impulse</option>
-        <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
-    </select></div>
     <p><b>_______________________________________________________________________________________________________</b></p>
-
     <div><label> Installed Meter:</label>
         <select  th:field="*{meterInstalled}">
             <option value="">select type</option>
             <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Installed Meter S/N: <input style="height: 22px" type="text" th:field="*{meterInstalledSerialNumber}" />
+        </select><br>
+        Installed Meter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{meterInstalledSerialNumber}" /><br>
         <label> Installed Meter Prod.Year:</label>
         <select th:field="*{meterInstalledProductionYear}">
             <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                     th:value="${year}" th:text="${year}">
             </option>
-        </select>
-        Installed Meter RadioAdr: <input style="height: 22px" size="7px" type="text" th:field="*{meterInstalledRadioAddress}" />
+        </select><br>
+        Installed Meter RadioAdr: <input style="height: 22px" size="6px" type="text" th:field="*{meterInstalledRadioAddress}" /><br>
         <label> Dismantled Meter Imp.:</label>
         <select  th:field="*{meterInstalledImpulse}">
             <option value="">select impulse</option>
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label> Installed Meter Legalization Date:</label>
+        <select th:field="*{meterInstalledLegalizationDate1}">
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
         </select>
-        Installed Meter Legalization Year: <input style="height: 22px" type="text" th:field="*{meterInstalledLegalizationDate}" /></div>
+        <select th:field="*{meterInstalledLegalizationDate2}">
+            <option th:each="month : ${#numbers.sequence(1, 12)}"
+                    th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
+            </option>
+        </select></div>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label> Dismantled Meter:</label>
+        <select  th:field="*{meterDismantled}">
+            <option value="">select type</option>
+            <option th:each="option : ${meters}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        Dismantled Meter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{meterDismantledSerialNumber}" /><br>
+        <label> Dismantled Meter Prod.Year:</label>
+        <select th:field="*{meterDismantledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select><br>
+        Dismantled Meter RadioAdr: <input style="height: 22px" size="6px" type="text" th:field="*{meterDismantledRadioAddress}" /><br>
+        <label> Dismantled Meter Imp.:</label>
+        <select  th:field="*{meterDismantledImpulse}">
+            <option value="">select impulse</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select></div><br>
+    <p><b>_______________________________________________________________________________________________________</b></p>
+    <div><label>Installed FlowConverter:</label>
+        <select th:field="*{flowMeterInstalled}">
+            <option value="">select type</option>
+            <option th:each="option : ${flowMeters}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        Installed FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterInstalledSerialNumber}" /><br>
+        <label>Installed FlowConverter Prod.Year:</label>
+        <select th:field="*{flowMeterInstalledProductionYear}">
+            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select><br>
+        <label>Installed FlowConverter Qn:</label>
+        <select th:field="*{flowMeterInstalledQN}">
+            <option value="">select Qn</option>
+            <option th:each="option : ${qN}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label>Installed FlowConverter DN:</label>
+        <select th:field="*{flowMeterInstalledDN}">
+            <option value="">select DN</option>
+            <option th:each="option : ${dN}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label>Installed FlowConverter Imp:</label>
+        <select th:field="*{flowMeterInstalledImpulse}">
+            <option value="">select impulse</option>
+            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label>Installed FlowConverter Legalization Date:</label>
+        <select th:field="*{flowMeterInstalledLegalizationDate1}">
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
+                    th:value="${year}" th:text="${year}">
+            </option>
+        </select>
+        <select th:field="*{flowMeterInstalledLegalizationDate2}">
+            <option th:each="month : ${#numbers.sequence(1, 12)}"
+                    th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
+            </option>
+        </select>
+    </div>
     <p><b>_______________________________________________________________________________________________________</b></p>
     <div><label>Dismantled FlowConverter:</label>
         <select th:field="*{flowMeterDismantled}">
             <option value="">select type</option>
             <option th:each="option : ${flowMeters}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Dismantled FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterDismantledSerialNumber}" />
+        </select><br>
+        Dismantled FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterDismantledSerialNumber}" /><br>
         <label>Dismantled FlowConverter Prod.Year:</label>
         <select th:field="*{flowMeterDismantledProductionYear}">
             <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
                     th:value="${year}" th:text="${year}">
             </option>
-        </select>
+        </select><br>
         <label>Dismantled FlowConverter Qn:</label>
         <select th:field="*{flowMeterDismantledQN}">
             <option value="">select Qn</option>
             <option th:each="option : ${qN}" th:value="${option}" th:text="${option}" ></option>
-        </select>
+        </select><br>
         <label>Dismantled FlowConverter DN:</label>
         <select th:field="*{flowMeterDismantledDN}">
             <option value="">select DN</option>
             <option th:each="option : ${dN}" th:value="${option}" th:text="${option}" ></option>
-        </select>
+        </select><br>
         <label>Dismantled FlowConverter Imp:</label>
         <select th:field="*{flowMeterDismantledImpulse}">
             <option value="">select impulse</option>
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
         </select></div>
     <p><b>_______________________________________________________________________________________________________</b></p>
-    <div><label>Installed FlowConverter:</label>
-        <select th:field="*{flowMeterInstalled}">
+    <div><label>Installed Temp Sensor PT</label>
+        <select th:field="*{tempSensorInstalledPT}">
+            <option value="">select PT</option>
+            <option th:each="option : ${sensorPT}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        <label>Temp Sensor Type</label>
+        <select th:field="*{tempSensorInstalledType}">
             <option value="">select type</option>
-            <option th:each="option : ${flowMeters}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Installed FlowConverter S/N: <input style="height: 22px" size="8px" type="text" th:field="*{flowMeterInstalledSerialNumber}" />
-        <label>Installed FlowConverter Prod.Year:</label>
-        <select th:field="*{flowMeterInstalledProductionYear}">
-            <option th:each="year : ${#numbers.sequence(2003, #dates.year(#dates.createNow()))}"
+            <option th:each="option : ${sensorType}" th:value="${option}" th:text="${option}" ></option>
+        </select><br>
+        Installed TempSensor S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber1}" /><br>
+        Installed TempSensor Prod.Year: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledProductionYear}" />
+        <br>
+        Installed TempSensor Legalization Year:
+        <select th:field="*{tempSensorInstalledLegalizationDate1}">
+            <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <label>Installed FlowConverter Qn:</label>
-        <select th:field="*{flowMeterInstalledQN}">
-            <option value="">select Qn</option>
-            <option th:each="option : ${qN}" th:value="${option}" th:text="${option}" ></option>
+        <select th:field="*{tempSensorInstalledLegalizationDate2}">
+            <option th:each="month : ${#numbers.sequence(1, 11)}"
+                    th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
+            </option>
         </select>
-        <label>Installed FlowConverter DN:</label>
-        <select th:field="*{flowMeterInstalledDN}">
-            <option value="">select DN</option>
-            <option th:each="option : ${dN}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        <label>Installed FlowConverter Imp:</label>
-        <select th:field="*{flowMeterInstalledImpulse}">
-            <option value="">select impulse</option>
-            <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Installed FlowConverter Legalization Year: <input style="height: 22px" type="text" th:field="*{flowMeterInstalledLegalizationDate}" />
     </div>
     <p><b>_______________________________________________________________________________________________________</b></p>
     <div><label>Dismantled Temp Sensor PT</label>
         <select th:field="*{tempSensorDismantledPT}">
             <option value="">select PT</option>
             <option th:each="option : ${sensorPT}" th:value="${option}" th:text="${option}" ></option>
-        </select>
+        </select><br>
         <label>Temp Sensor Type</label>
         <select th:field="*{tempSensorDismantledType}">
             <option value="">select type</option>
             <option th:each="option : ${sensorType}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Dismantled TempSensor1 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber1}" />
-        Dismantled TempSensor2 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber2}" />
+        </select><br>
+        Dismantled TempSensor S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber1}" /><br>
         Dismantled TempSensor Prod.Year: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledProductionYear}" />
     </div>
     <p><b>_______________________________________________________________________________________________________</b></p>
-    <div><label>Installed Temp Sensor PT</label>
-        <select th:field="*{tempSensorInstalledPT}">
-            <option value="">select PT</option>
-            <option th:each="option : ${sensorPT}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        <label>Temp Sensor Type</label>
-        <select th:field="*{tempSensorInstalledType}">
-            <option value="">select type</option>
-            <option th:each="option : ${sensorType}" th:value="${option}" th:text="${option}" ></option>
-        </select>
-        Installed TempSensor1 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber1}" />
-        Installed TempSensor2 S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber2}" />
-        Installed TempSensor Prod.Year: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledProductionYear}" />
-        Installed TempSensor Legalization Year: <input style="height: 22px" type="text" th:field="*{tempSensorInstalledLegalizationDate}" />
-    </div>
-    <p><b>_______________________________________________________________________________________________________</b></p>
     <div>
-        Other action services: <input style="height: 22px" type="text" th:field="*{otherActionsService}" />
+        Other action services: <input style="height: 22px" size="40px" type="text" th:field="*{otherActionsService}" />
         <br><p><b>_______________________________________________________________________________________________________</b></p>
 
         Energy readings after: <input style="height: 22px" size="8px" type="text" th:field="*{energyAfter}" />

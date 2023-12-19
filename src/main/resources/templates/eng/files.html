@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org" lang="pl">
 <head>
-    <title>User File Paths</title>
+    <title>User Files</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>Lista plików do pobrania:</h1>
+<h1>Files to download:</h1>
 <ul>
     <li th:each="entry : ${userFilePath}">
         <span th:text="${entry}"></span> :

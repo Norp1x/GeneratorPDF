@@ -19,6 +19,9 @@ public class FileConfiguration{
     @Value("${pdf.existingGeneratedPdfFilesPath}")
     private String existingGeneratedPdfFilesPath;
 
+    @Value("${pdf.language}")
+    private String language;
+
     public String fontPath(){
         return formatPath(fontPath);
     }
@@ -37,5 +40,9 @@ public class FileConfiguration{
 
     private String formatPath(String path){
         return path.replace("/", File.separator);
+    }
+
+    public String language(){
+        return language;
     }
 }

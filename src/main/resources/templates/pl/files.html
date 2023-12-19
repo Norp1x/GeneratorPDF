@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head>
+    <title>Pliki użytkownika</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Lista plików do pobrania:</h1>
+<ul>
+    <li th:each="entry : ${userFilePath}">
+        <span th:text="${entry}"></span> :
+        <a th:href="'static/' + ${entry}" target="_blank">Pobierz</a>
+    </li>
+</ul>
+<button type="button" onclick="window.location.href='/generatepdf'">Utwórz nowy PDF</button>
+<button type="button" onclick="history.go(-1)">Wróć</button>
+</body>
+</html>

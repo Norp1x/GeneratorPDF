@@ -92,7 +92,7 @@ public class PdfController {
                 "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", ""));
-        return "home1";
+        return fileConfiguration.language() + "/home";
     }
 
     @GetMapping("/files")
@@ -101,7 +101,7 @@ public class PdfController {
         Set<String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
         savedFilesByUser.addAll(oldFiles);
         model.addAttribute("userFilePath", savedFilesByUser);
-        return "files";
+        return fileConfiguration.language() + "/files";
     }
 
     @GetMapping(value = "/static/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
