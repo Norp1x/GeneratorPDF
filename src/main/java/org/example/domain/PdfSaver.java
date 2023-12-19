@@ -9,13 +9,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 @Component
 class PdfSaver {
 
     PdfFileInfo savePdf(final PDDocument pdfFile, final String address, final String savePath) throws IOException {
-        String uuid = UUID.randomUUID().toString();
+        String id = String.valueOf(System.currentTimeMillis());
         String dateTime = new SimpleDateFormat("dd-MM-yyyy__HH-mm-ss").format(new Date());
         PdfName pdfName = new PdfName(dateTime + "__" + address + ".pdf");
         PdfSavedPath savedPath = new PdfSavedPath(savePath + pdfName.value());
@@ -23,7 +22,7 @@ class PdfSaver {
         pdfFile.save(toSave);
         pdfFile.close();
         System.out.println("PDF Created");
-        return new PdfFileInfo(pdfName, uuid);
+        return new PdfFileInfo(pdfName, id);
     }
 
     ByteArrayResource saveToFile(final String fileName, final String path) throws IOException {

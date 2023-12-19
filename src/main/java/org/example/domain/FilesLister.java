@@ -2,7 +2,6 @@ package org.example.domain;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FilesLister {
     public List<String> listAllPdfFilesInDirectory(String directoryPath) {
@@ -10,9 +9,8 @@ public class FilesLister {
         if (!(directory.exists() && directory.isDirectory())) {
             return Collections.emptyList();
         }
-        Set<String> uniqueSortedFiles = Arrays.stream(directory.listFiles())
-                .map(File::getName)
-                .collect(Collectors.toCollection(TreeSet::new));
-        return new ArrayList<>(uniqueSortedFiles);
+        List<String> files = Arrays.asList(Objects.requireNonNull(Objects.requireNonNull(directory.list())));
+        files.sort(Comparator.reverseOrder());
+        return files;
     }
 }

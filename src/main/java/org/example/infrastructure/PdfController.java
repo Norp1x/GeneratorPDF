@@ -9,16 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@SuppressWarnings({"SpellCheckingInspection", "SameReturnValue"})
 @Controller
 @AllArgsConstructor
 public class PdfController {
-    private final Map<String, String> savedFilesByUser = new HashMap<>();
+    private final Set<String> savedFilesByUser = new LinkedHashSet<>();
     private final PdfFilesReader pdfFilesReader;
     private final PdfGenerator pdfGenerator;
     private final PdfGeneratorFacade facade;
@@ -100,29 +97,30 @@ public class PdfController {
 
     @GetMapping("/files")
     public String showAllFiles(Model model) {
-        Map<String, String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
-        savedFilesByUser.putAll(oldFiles);
+        savedFilesByUser.clear();
+        Set<String> oldFiles = pdfFilesReader.retrieveAllExistingFiles();
+        savedFilesByUser.addAll(oldFiles);
         model.addAttribute("userFilePath", savedFilesByUser);
         return "files";
     }
 
     @GetMapping(value = "/static/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException, URISyntaxException {
+    public @ResponseBody Resource getFileViaByteArrayResource(@PathVariable String fileName) throws IOException {
         return facade.saveToFile(fileName, fileConfiguration.savePath());
     }
 
     @PostMapping("/generatepdf")
-    public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) throws IOException {
+    public String generatePDF(@ModelAttribute PdfRequest pdfRequest, Model model) {
         Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
         model.addAttribute("PdfRequest", fields);
         PdfFileInfo fileToDownload = pdfGenerator.generatePDF(fields);
         System.out.println(fileToDownload);
-        savedFilesByUser.put(fileToDownload.id(), fileToDownload.fileName().value());
+        savedFilesByUser.add(fileToDownload.fileName().value());
         return "redirect:/files";
     }
 
     @GetMapping("/processform")
-    public String showForm2(@ModelAttribute("PdfRequest") PdfRequest pdfRequest, Model model) throws IOException {
+    public String showForm2(@ModelAttribute("PdfRequest") PdfRequest pdfRequest, Model model) {
         Fields fields = PdfRequestMapper.mapFromPdfRequestToFields(pdfRequest);
         model.addAttribute("pdfRequest", fields);
         return "submitform";
