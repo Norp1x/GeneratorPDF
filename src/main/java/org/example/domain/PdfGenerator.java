@@ -329,6 +329,11 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             flowConverterReadingsAfter.close();
             readingsAfterService3.close();
 
+            PDPageContentStream dateLine2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
+            PDPageContentStream dateField2 = textWriter.textWriterPDF(dateLine2, fields.date(), 426, 685, 16);
+            dateField2.close();
+            dateLine2.close();
+
             PdfFileInfo fileInfo = pdfSaver.savePdf(pdfFile, fields.address(), fileConfiguration.savePath());
             pdfFile.close();
             return fileInfo;
