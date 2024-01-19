@@ -25,7 +25,7 @@ public class ServicePdfGenerator {
                 || meterDismantled.equalsIgnoreCase("SCYLAR 548")) {
             meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 129, 333, 8);
         } else {
-            meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 135, 332, 13);
+            meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 131, 332, 13);
         }
         return meterDismantledTypeStream;
     }
@@ -36,7 +36,7 @@ public class ServicePdfGenerator {
                 || meterDismantled.equalsIgnoreCase("SCYLAR 548")) {
             meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 129, 356, 8);
         } else {
-            meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 135, 357, 13);
+            meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 131, 357, 13);
         }
         return meterInstalledTypeStream;
     }
