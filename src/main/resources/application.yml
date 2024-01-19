@@ -6,18 +6,18 @@
 #spring.thymeleaf.content-type=text/html
 #spring.thymeleaf.cache=false
 
-#pdf:
-#  fontPath: ./src/main/resources/ttf/DejaVuSans-Bold.ttf
-#  readPath: ./src/main/resources/static/
-#  savePath: ./src/main/resources/static/generatedpdfs/
-#  existingGeneratedPdfFilesPath: ./src/main/resources/static/generatedpdfs/
-#  language: pl
-##  language: eng
-
 pdf:
-  fontPath: /home/ec2-user/static/ttf/DejaVuSans-Bold.ttf
-  readPath: /home/ec2-user/static/
-  savePath: /home/ec2-user/static/generatedpdfs/
-  existingGeneratedPdfFilesPath: /home/ec2-user/static/generatedpdfs/
+  fontPath: ./src/main/resources/ttf/DejaVuSans-Bold.ttf
+  readPath: ./src/main/resources/static/
+  savePath: ./src/main/resources/static/generatedpdfs/
+  existingGeneratedPdfFilesPath: ./src/main/resources/static/generatedpdfs/
   language: pl
-##  language: eng
+#  language: eng
+
+#pdf:
+#  fontPath: /home/ec2-user/static/ttf/DejaVuSans-Bold.ttf
+#  readPath: /home/ec2-user/static/
+#  savePath: /home/ec2-user/static/generatedpdfs/
+#  existingGeneratedPdfFilesPath: /home/ec2-user/static/generatedpdfs/
+#  language: pl
+###  language: eng

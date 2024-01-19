@@ -15,9 +15,11 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 1. Clone the repository
-2. Navigate to the project directory
-3. Run `mvn clean install` to build the project
-4. Run `mvn spring-boot:run` to start the application
+2. Check application.yml and comment/uncomment right paths:
+![application.png](application.png)
+3. Navigate to the project directory
+4. Run `mvn clean install` to build the project
+5. Run `mvn spring-boot:run` to start the application
 
 ## Usage
 
