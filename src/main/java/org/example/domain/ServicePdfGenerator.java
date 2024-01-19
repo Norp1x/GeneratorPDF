@@ -14,7 +14,7 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 @EnableConfigurationProperties(FileConfiguration.class)
-public class PdfGenerator {
+public class ServicePdfGenerator {
 
     private final FileConfiguration fileConfiguration;
     private final PdfSaver pdfSaver = new PdfSaver();
@@ -23,7 +23,7 @@ public class PdfGenerator {
         PDPageContentStream meterDismantledTypeStream;
         if (meterDismantled.equalsIgnoreCase("Multical 603") || meterDismantled.equalsIgnoreCase("Multical 403")
                 || meterDismantled.equalsIgnoreCase("SCYLAR 548")) {
-            meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 129, 333, 8.5f);
+            meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 129, 333, 8);
         } else {
             meterDismantledTypeStream = textWriter.textWriterPDF(meterRow_1a, meterDismantled, 135, 332, 13);
         }
@@ -34,7 +34,7 @@ public class PdfGenerator {
         PDPageContentStream meterInstalledTypeStream;
         if (meterDismantled.equalsIgnoreCase("Multical 603") || meterDismantled.equalsIgnoreCase("Multical 403")
                 || meterDismantled.equalsIgnoreCase("SCYLAR 548")) {
-            meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 129, 356, 8.5f);
+            meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 129, 356, 8);
         } else {
             meterInstalledTypeStream = textWriter.textWriterPDF(meterRow_2a, meterDismantled, 135, 357, 13);
         }
@@ -44,9 +44,11 @@ public class PdfGenerator {
     public PDPageContentStream writeFlowMeterDismantledType(String flowMeterDismantled, PDPageContentStream flowMeterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream flowMeterDismantledTypeStream;
         if (flowMeterDismantled.equalsIgnoreCase("AXONIC") || flowMeterDismantled.equalsIgnoreCase("UNICO 2")) {
-            flowMeterDismantledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterDismantled, 130, 413, 13);
+            flowMeterDismantledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterDismantled, 129, 413, 13);
+        } else if (flowMeterDismantled.equalsIgnoreCase("ULTRA FLOW 54")) {
+            flowMeterDismantledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterDismantled, 130, 413, 7);
         } else {
-            flowMeterDismantledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterDismantled, 130, 413, 9);
+            flowMeterDismantledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterDismantled, 130, 413, 8);
         }
         return flowMeterDismantledTypeStream;
     }
@@ -54,9 +56,11 @@ public class PdfGenerator {
     public PDPageContentStream writeFlowMeterInstalledType(String flowMeterInstalled, PDPageContentStream flowMeterRow_1a, TextWriter textWriter) throws IOException {
         PDPageContentStream flowMeterInstalledTypeStream;
         if (flowMeterInstalled.equalsIgnoreCase("AXONIC") || flowMeterInstalled.equalsIgnoreCase("UNICO 2")) {
-            flowMeterInstalledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterInstalled, 130, 437, 13);
+            flowMeterInstalledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterInstalled, 129, 437, 13);
+        } else if (flowMeterInstalled.equalsIgnoreCase("ULTRA FLOW 54")) {
+            flowMeterInstalledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterInstalled, 130, 437, 7);
         } else {
-            flowMeterInstalledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterInstalled, 130, 437, 9);
+            flowMeterInstalledTypeStream = textWriter.textWriterPDF(flowMeterRow_1a, flowMeterInstalled, 130, 437, 8);
         }
         return flowMeterInstalledTypeStream;
     }
@@ -64,9 +68,9 @@ public class PdfGenerator {
 public PDPageContentStream writeTempSensorDismantledType(String tempSensorDismantled, PDPageContentStream tempSensorRow_1b, TextWriter textWriter) throws IOException {
         PDPageContentStream tempSensorDismantledTypeStream;
         if (tempSensorDismantled.equalsIgnoreCase("61-63-D0-052-218") || tempSensorDismantled.equalsIgnoreCase("61-63-D0-082-218")) {
-            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 248, 503, 8);
+            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 245, 503, 7.6f);
         } else {
-            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 256, 503, 13);
+            tempSensorDismantledTypeStream = textWriter.textWriterPDF(tempSensorRow_1b, tempSensorDismantled, 246, 503, 13);
         }
         return tempSensorDismantledTypeStream;
     }
@@ -74,9 +78,9 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
     public PDPageContentStream writeTempSensorInstalledType(String tempSensorInstalled, PDPageContentStream tempSensorRow_2b, TextWriter textWriter) throws IOException {
         PDPageContentStream tempSensorInstalledTypeStream;
         if (tempSensorInstalled.equalsIgnoreCase("61-63-D0-052-218") || tempSensorInstalled.equalsIgnoreCase("61-63-D0-082-218")) {
-            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 248, 540, 8);
+            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 245, 540, 7.6f);
         } else {
-            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 256, 540, 13);
+            tempSensorInstalledTypeStream = textWriter.textWriterPDF(tempSensorRow_2b, tempSensorInstalled, 246, 540, 13);
         }
         return tempSensorInstalledTypeStream;
     }
@@ -100,15 +104,15 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             dateLine.close();
 
             PDPageContentStream readingsBeforeService1 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream energyReadingsBefore = textWriter.textWriterPDF(readingsBeforeService1, fields.energyBefore(), 174, 276.7f, 13);
+            PDPageContentStream energyReadingsBefore = textWriter.textWriterPDF(readingsBeforeService1, fields.energyBefore(), 174, 276.7f, 10);
             energyReadingsBefore.close();
             readingsBeforeService1.close();
             PDPageContentStream readingsBeforeService2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream waterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService2, fields.waterBefore(), 291, 276.7f, 13);
+            PDPageContentStream waterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService2, fields.waterBefore(), 291, 276.7f, 10);
             waterReadingsBefore.close();
             readingsBeforeService2.close();
             PDPageContentStream readingsBeforeService3 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream flowConverterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService3, fields.flowConverterBefore(), 471, 276.7f, 13);
+            PDPageContentStream flowConverterReadingsBefore = textWriter.textWriterPDF(readingsBeforeService3, fields.flowConverterBefore(), 471, 276.7f, 10);
             flowConverterReadingsBefore.close();
             readingsBeforeService3.close();
 
@@ -163,12 +167,12 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             meterRow_2e.close();
 
             PDPageContentStream meterRow_2f = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedMeterLegalizationDate1 = textWriter.textWriterPDF(meterRow_2f, fields.meterInstalledLegalizationDate1(), 503.5f, 357, 13);
+            PDPageContentStream installedMeterLegalizationDate1 = textWriter.textWriterPDF(meterRow_2f, fields.meterInstalledLegalizationDate1(), 503.5f, 357, 12);
             installedMeterLegalizationDate1.close();
             meterRow_2f.close();
 
             PDPageContentStream meterRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedMeterLegalizationDate2 = textWriter.textWriterPDF(meterRow_2g, "-" + fields.meterInstalledLegalizationDate2(), 535.5f, 357, 13);
+            PDPageContentStream installedMeterLegalizationDate2 = textWriter.textWriterPDF(meterRow_2g, "-" + fields.meterInstalledLegalizationDate2(), 535.5f, 357, 12);
             installedMeterLegalizationDate2.close();
             meterRow_2g.close();
 
@@ -233,12 +237,12 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             flowMeterRow_2f.close();
 
             PDPageContentStream flowMeterRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedFlowMeterLegalizationDate1 = textWriter.textWriterPDF(flowMeterRow_2g, fields.flowMeterInstalledLegalizationDate1(), 503.5f, 437, 13);
+            PDPageContentStream installedFlowMeterLegalizationDate1 = textWriter.textWriterPDF(flowMeterRow_2g, fields.flowMeterInstalledLegalizationDate1(), 503.5f, 437, 12);
             installedFlowMeterLegalizationDate1.close();
             flowMeterRow_2g.close();
 
             PDPageContentStream flowMeterRow_2h = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedFlowMeterLegalizationDate2 = textWriter.textWriterPDF(flowMeterRow_2h, "-" + fields.flowMeterInstalledLegalizationDate2(), 535.5f, 437, 13);
+            PDPageContentStream installedFlowMeterLegalizationDate2 = textWriter.textWriterPDF(flowMeterRow_2h, "-" + fields.flowMeterInstalledLegalizationDate2(), 535.5f, 437, 12);
             installedFlowMeterLegalizationDate2.close();
             flowMeterRow_2h.close();
 
@@ -302,12 +306,12 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             tempSensorRow_2e.close();
 
             PDPageContentStream tempSensorRow_2f = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedTempSensorLegalizationDate1 = textWriter.textWriterPDF(tempSensorRow_2f, fields.tempSensorInstalledLegalizationDate1(), 503.5f, 540, 13);
+            PDPageContentStream installedTempSensorLegalizationDate1 = textWriter.textWriterPDF(tempSensorRow_2f, fields.tempSensorInstalledLegalizationDate1(), 503.5f, 540, 12);
             installedTempSensorLegalizationDate1.close();
             tempSensorRow_2f.close();
 
             PDPageContentStream tempSensorRow_2g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream installedTempSensorLegalizationDate2 = textWriter.textWriterPDF(tempSensorRow_2g, "-" + fields.tempSensorInstalledLegalizationDate2(), 535.5f, 540, 13);
+            PDPageContentStream installedTempSensorLegalizationDate2 = textWriter.textWriterPDF(tempSensorRow_2g, "-" + fields.tempSensorInstalledLegalizationDate2(), 535.5f, 540, 12);
             installedTempSensorLegalizationDate2.close();
             tempSensorRow_2g.close();
 
@@ -317,15 +321,15 @@ public PDPageContentStream writeTempSensorDismantledType(String tempSensorDisman
             otherField.close();
 
             PDPageContentStream readingsAfterService1 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream energyReadingsAfter = textWriter.textWriterPDF(readingsAfterService1, fields.energyAfter(), 174, 643, 13);
+            PDPageContentStream energyReadingsAfter = textWriter.textWriterPDF(readingsAfterService1, fields.energyAfter(), 174, 643, 10);
             energyReadingsAfter.close();
             readingsAfterService1.close();
             PDPageContentStream readingsAfterService2 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream waterReadingsAfter = textWriter.textWriterPDF(readingsAfterService2, fields.waterAfter(), 291, 643, 13);
+            PDPageContentStream waterReadingsAfter = textWriter.textWriterPDF(readingsAfterService2, fields.waterAfter(), 291, 643, 10);
             waterReadingsAfter.close();
             readingsAfterService2.close();
             PDPageContentStream readingsAfterService3 = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream flowConverterReadingsAfter = textWriter.textWriterPDF(readingsAfterService3, fields.flowConverterAfter(), 469, 643, 13);
+            PDPageContentStream flowConverterReadingsAfter = textWriter.textWriterPDF(readingsAfterService3, fields.flowConverterAfter(), 469, 643, 10);
             flowConverterReadingsAfter.close();
             readingsAfterService3.close();
 

@@ -17,7 +17,7 @@ import java.util.*;
 public class PdfController {
     private final Set<String> savedFilesByUser = new LinkedHashSet<>();
     private final PdfFilesReader pdfFilesReader;
-    private final PdfGenerator pdfGenerator;
+    private final ServicePdfGenerator pdfGenerator;
     private final PdfGeneratorFacade facade;
     private final FileConfiguration fileConfiguration;
 
