@@ -1,0 +1,29 @@
+pdf:
+  fontPath: ./backend/src/main/resources/ttf/DejaVuSans.ttf
+  readPath: ./backend/src/main/resources/static/
+  savePath: ./backend/src/main/resources/static/generatedpdfs/
+  existingGeneratedPdfFilesPath: ./backend/src/main/resources/static/generatedpdfs/
+  language: pl
+#  language: eng
+
+#pdf:
+#  fontPath: /home/ec2-user/static/ttf/DejaVuSans-Bold.ttf
+#  readPath: /home/ec2-user/static/
+#  savePath: /home/ec2-user/static/generatedpdfs/
+#  existingGeneratedPdfFilesPath: /home/ec2-user/static/generatedpdfs/
+#  language: pl
+###  language: eng
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservices
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
