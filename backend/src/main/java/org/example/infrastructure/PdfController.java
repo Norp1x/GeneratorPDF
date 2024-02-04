@@ -90,9 +90,9 @@ public class PdfController {
         model.addAttribute("sensorType", sensorType);
         model.addAttribute("PdfRequest", new PdfRequest("legalization", "auto", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", ""));
+                "", "", "", "", "", "", "", "", "", "", "", ""));
         return fileConfiguration.language() + "/home";
     }
 
