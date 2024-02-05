@@ -26,7 +26,7 @@ public class PdfController {
         List<String> meters = new ArrayList<>();
         meters.add("CF 51");
         meters.add("CF 55");
-        meters.add("CF ECHO");
+        meters.add("CF ECHO II");
         meters.add("LEC 5");
         meters.add("FAUN");
         meters.add("LQM-III");
@@ -90,8 +90,7 @@ public class PdfController {
         model.addAttribute("sensorType", sensorType);
         model.addAttribute("PdfRequest", new PdfRequest("legalization", "auto", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", ""));
         return fileConfiguration.language() + "/home";
     }
