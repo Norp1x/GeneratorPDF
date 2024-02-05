@@ -50,6 +50,7 @@ public class PdfController {
         flowMeters.add("CF ECHO II");
         flowMeters.add("SONO 2500CT");
         flowMeters.add("SHARKY 473");
+        flowMeters.add("SHARKY FS");
         flowMeters.add("ULTRA FLOW 54");
         flowMeters.add("AXONIC");
         flowMeters.add("UNICO 2");
@@ -89,9 +90,9 @@ public class PdfController {
         model.addAttribute("sensorType", sensorType);
         model.addAttribute("PdfRequest", new PdfRequest("legalization", "auto", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", ""));
+                "", "", "", "", "", "", "", "", "", "", "", ""));
         return fileConfiguration.language() + "/home";
     }
 

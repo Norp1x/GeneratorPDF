@@ -1,6 +1,9 @@
 package org.example.domain;
 
-public record PdfRequest(
+import lombok.Builder;
+
+@Builder
+public record Fields(
         String actionType1,
         String actionType2,
         String address,
@@ -13,6 +16,8 @@ public record PdfRequest(
         String meterDismantledProductionYear,
         String meterDismantledRadioAddress,
         String meterDismantledImpulse,
+        String meterDismantledLegalizationDate1,
+        String meterDismantledLegalizationDate2,
         String meterInstalled,
         String meterInstalledSerialNumber,
         String meterInstalledProductionYear,
@@ -26,6 +31,8 @@ public record PdfRequest(
         String flowMeterDismantledQN,
         String flowMeterDismantledDN,
         String flowMeterDismantledImpulse,
+        String flowMeterDismantledLegalizationDate1,
+        String flowMeterDismantledLegalizationDate2,
         String flowMeterInstalled,
         String flowMeterInstalledSerialNumber,
         String flowMeterInstalledProductionYear,
@@ -39,6 +46,8 @@ public record PdfRequest(
         String tempSensorDismantledSerialNumber1,
         String tempSensorDismantledSerialNumber2,
         String tempSensorDismantledProductionYear,
+        String tempSensorDismantledLegalizationDate1,
+        String tempSensorDismantledLegalizationDate2,
         String tempSensorInstalledPT,
         String tempSensorInstalledType,
         String tempSensorInstalledSerialNumber1,
@@ -52,6 +61,3 @@ public record PdfRequest(
         String flowConverterAfter
 ) {
 }
-
-
-
