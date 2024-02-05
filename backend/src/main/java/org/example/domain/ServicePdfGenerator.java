@@ -21,7 +21,7 @@ public class ServicePdfGenerator {
 
     // Address & date coordinates + font size
     private static final int ADDRESS_AND_DATE_FONT_SIZE = 9;
-    private static final int FONT_SIZE = 9;
+    private static final float FONT_SIZE = 7.7f;
 
     private static final int ADDRESS_LINE_X = 142;
     private static final int ADDRESS_LINE_Y = 205;
@@ -50,14 +50,14 @@ public class ServicePdfGenerator {
     // X_Coordinates section
     private static final int ENERGY_READINGS_COLUMN_X = 174;
     private static final int WATER_READINGS_COLUMN_X = 291;
-    private static final int METER_TYPE_COLUMN_X = 130;
+    private static final int METER_TYPE_COLUMN_X = 127;
     private static final int METERS_SN_COLUMN_X = 212;
     private static final int METERS_PROD_YEAR_COLUMN_X = 348;
     private static final int RADIO_ADDR_AND_QN_COLUMN_X = 397;
     private static final int DN_COLUMN_X = 435;
     private static final int IMP_AND_FLOW_READINGS_COLUMN_X = 473;
     private static final int TEMP_SENSOR_PT_COLUMN_X = 208;
-    private static final int TEMP_SENSOR_TYPE_COLUMN_X = 245;
+    private static final int TEMP_SENSOR_TYPE_COLUMN_X = 243;
     private static final int TEMP_SENSOR_SN_COLUMN_X = 342;
     private static final int TEMP_SENSOR_PROD_YEAR_COLUMN_X = 460;
     private static final int LEGALIZATION_DATE_COLUMN_X1 = 514;
