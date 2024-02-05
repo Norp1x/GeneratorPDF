@@ -21,7 +21,7 @@ public class ServicePdfGenerator {
 
     // Address & date coordinates + font size
     private static final int ADDRESS_AND_DATE_FONT_SIZE = 9;
-    private static final int FONT_SIZE = 7;
+    private static final int FONT_SIZE = 9;
 
     private static final int ADDRESS_LINE_X = 142;
     private static final int ADDRESS_LINE_Y = 205;
@@ -126,11 +126,6 @@ public class ServicePdfGenerator {
             dismantledMeterLegalizationDate1.close();
             meterRow_1f.close();
 
-            PDPageContentStream meterRow_1g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream dismantledMeterLegalizationDate2 = textWriter.textWriterPDF(meterRow_1g, "-" + fields.meterDismantledLegalizationDate2(), LEGALIZATION_DATE_COLUMN_X2, DISMANTLED_METER_Y, FONT_SIZE);
-            dismantledMeterLegalizationDate2.close();
-            meterRow_1g.close();
-
             PDPageContentStream meterRow_2a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
             PDPageContentStream installedMeterType = textWriter.textWriterPDF(meterRow_2a, fields.meterInstalled(), METER_TYPE_COLUMN_X, INSTALLED_METER_Y, FONT_SIZE);
             installedMeterType.close();
@@ -200,11 +195,6 @@ public class ServicePdfGenerator {
             PDPageContentStream dismantledFlowMeterLegalizationDate1 = textWriter.textWriterPDF(flowMeterRow_1g, fields.flowMeterDismantledLegalizationDate1(), LEGALIZATION_DATE_COLUMN_X1, DISMANTLED_FLOW_METER_Y, FONT_SIZE);
             dismantledFlowMeterLegalizationDate1.close();
             flowMeterRow_1g.close();
-
-            PDPageContentStream flowMeterRow_1h = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream dismantledFlowMeterLegalizationDate2 = textWriter.textWriterPDF(flowMeterRow_1h, "-" + fields.flowMeterDismantledLegalizationDate2(), LEGALIZATION_DATE_COLUMN_X2, DISMANTLED_FLOW_METER_Y, FONT_SIZE);
-            dismantledFlowMeterLegalizationDate2.close();
-            flowMeterRow_1h.close();
 
             PDPageContentStream flowMeterRow_2a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
             PDPageContentStream installedFlowMeterType = textWriter.textWriterPDF(flowMeterRow_2a, fields.flowMeterInstalled(), METER_TYPE_COLUMN_X, INSTALLED_FLOW_METER_Y, FONT_SIZE);
@@ -279,11 +269,6 @@ public class ServicePdfGenerator {
             PDPageContentStream dismantledTempSensorLegalizationDate1 = textWriter.textWriterPDF(tempSensorRow_1f, fields.tempSensorDismantledLegalizationDate1(), LEGALIZATION_DATE_COLUMN_X1, DISMANTLED_TEMP_SENSOR_Y, FONT_SIZE);
             dismantledTempSensorLegalizationDate1.close();
             tempSensorRow_1f.close();
-
-            PDPageContentStream tempSensorRow_1g = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
-            PDPageContentStream dismantledTempSensorLegalizationDate2 = textWriter.textWriterPDF(tempSensorRow_1g, "-" + fields.tempSensorDismantledLegalizationDate2(), LEGALIZATION_DATE_COLUMN_X2, DISMANTLED_TEMP_SENSOR_Y, FONT_SIZE);
-            dismantledTempSensorLegalizationDate2.close();
-            tempSensorRow_1g.close();
 
             PDPageContentStream tempSensorRow_2a = new PDPageContentStream(pdfFile, firstPage, PDPageContentStream.AppendMode.APPEND, true, true);
             PDPageContentStream installedTempSensorPT = textWriter.textWriterPDF(tempSensorRow_2a, fields.tempSensorInstalledPT(), TEMP_SENSOR_PT_COLUMN_X, INSTALLED_TEMP_SENSOR_Y, FONT_SIZE);
