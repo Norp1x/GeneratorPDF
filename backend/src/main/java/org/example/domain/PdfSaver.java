@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Component;
@@ -10,23 +11,28 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Created by Norpix on 14.12.2024.
+ * Description:
+ */
+@Slf4j
 @Component
-class PdfSaver {
+public class PdfSaver {
 
-    PdfFileInfo savePdf(final PDDocument pdfFile, final String address, final String savePath) throws IOException {
+    PdfFileInfo savedPdf(PDDocument pdfFile, String address, String savePath) throws IOException {
         String id = String.valueOf(System.currentTimeMillis());
-        String dateTime = new SimpleDateFormat("dd-MM-yyyy__HH-mm-ss").format(new Date());
+        String dateTime = new SimpleDateFormat("dd-MM-yyyy__HH:mm:ss").format(new Date());
         PdfName pdfName = new PdfName(dateTime + "__" + address + ".pdf");
         PdfSavedPath savedPath = new PdfSavedPath(savePath + pdfName.value());
         File toSave = new File(savedPath.value());
         pdfFile.save(toSave);
         pdfFile.close();
-        System.out.println("PDF Created");
+        log.info("Saved PDF to {}", toSave);
         return new PdfFileInfo(pdfName, id);
     }
 
-    ByteArrayResource saveToFile(final String fileName, final String path) throws IOException {
-        File oldFile = new File(path + fileName);
+    ByteArrayResource saveToFile(String fileName, String savePath) throws IOException {
+        File oldFile = new File(savePath + fileName);
         return new ByteArrayResource(Files.readAllBytes(oldFile.toPath()));
     }
 }

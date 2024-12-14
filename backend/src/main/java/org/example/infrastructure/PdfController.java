@@ -1,7 +1,11 @@
 package org.example.infrastructure;
 
 import lombok.AllArgsConstructor;
-import org.example.domain.*;
+import org.example.domain.PdfFileInfo;
+import org.example.domain.PdfFilesReader;
+import org.example.domain.PdfGeneratorFacade;
+import org.example.domain.ServicePdfGenerator;
+import org.example.infrastructure.service.ShowFormService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -9,31 +13,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings({"SpellCheckingInspection", "SameReturnValue"})
 @Controller
 @AllArgsConstructor
 public class PdfController {
+
     private final Set<String> savedFilesByUser = new LinkedHashSet<>();
     private final PdfFilesReader pdfFilesReader;
     private final ServicePdfGenerator pdfGenerator;
     private final PdfGeneratorFacade facade;
     private final FileConfiguration fileConfiguration;
+    private final ShowFormService showFormService;
 
     @GetMapping("/generatepdf")
     public String showForm(Model model) {
-        List<String> meters = new ArrayList<>();
-        meters.add("CF 51");
-        meters.add("CF 55");
-        meters.add("CF ECHO");
-        meters.add("LEC 5");
-        meters.add("FAUN");
-        meters.add("LQM-III");
-        meters.add("SCYLAR 548");
-        meters.add("MULTICAL 403");
-        meters.add("MULTICAL 603");
-        model.addAttribute("meters", meters);
+
+        showFormService.prepareForm(model);
+
         List<String> impulse = new ArrayList<>();
         impulse.add("2,5");
         impulse.add("5");

@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import lombok.AllArgsConstructor;
+import org.example.domain.utils.FilesLister;
 import org.example.infrastructure.FileConfiguration;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +10,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public
-class PdfFilesReader {
+public class PdfFilesReader {
 
     private final FileConfiguration fileConfiguration;
     private final FilesLister listFilesInDirectory = new FilesLister();
