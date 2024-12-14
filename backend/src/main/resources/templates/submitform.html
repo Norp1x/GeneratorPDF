@@ -9,9 +9,9 @@
 <h1>Summary</h1>
 <form th:action="@{/processform}" th:object="${pdfRequest}" method="get">
 
-    <span> Action:  </span><b><span th:text="${pdfRequest.actionType1}"></span></b>
+    <span> Action:  </span><b><span th:text="${pdfRequest.actionType}"></span></b>
     <br>
-    <span> Reading method:  </span><b><span th:text="${pdfRequest.actionType2}"></span></b>
+    <span> Reading method:  </span><b><span th:text="${pdfRequest.readingMethod}"></span></b>
     <br>
     <span> Address:  </span><b><span th:text="${pdfRequest.address}"></span></b>
     <br>

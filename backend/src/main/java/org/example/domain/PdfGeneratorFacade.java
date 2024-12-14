@@ -12,7 +12,7 @@ public class PdfGeneratorFacade {
 
     private final PdfSaver pdfSaver;
 
-    public ByteArrayResource saveToFile(final String fileName, final String path) throws IOException {
+    public ByteArrayResource saveToFile(String fileName, String path) throws IOException {
         return pdfSaver.saveToFile(fileName, path);
     }
 }

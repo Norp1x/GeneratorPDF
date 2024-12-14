@@ -25,7 +25,7 @@ public class ServicePdfGenerator {
 
     private static final int ADDRESS_LINE_X = 142;
     private static final int ADDRESS_LINE_Y = 205;
-    
+
     private static final int DATE_LINE_1_X = 146;
     private static final int DATE_LINE_1_Y = 230;
 

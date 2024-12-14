@@ -10,13 +10,14 @@
 <h1>Utwórz nowy plik PDF</h1>
 <form th:action="@{/generatepdf}" th:object="${PdfRequest}" method="post">
     <p>Typ akcji: <br>
-        || Wymiana:<input type="radio" name="action1"  th:field="*{actionType1}" value="change" >
-        || Przywrócenie:<input type="radio" name="action1" th:field="*{actionType1}" value="restoration">
-        || Legalizacja:   <input type="radio" name="action1" th:field="*{actionType1}" value="legalization" th:checked="true"> || </p>
+        || Wymiana:<input type="radio" name="action1" th:field="*{actionType}" value="change">
+        || Przywrócenie:<input type="radio" name="action1" th:field="*{actionType}" value="restoration">
+        || Legalizacja: <input type="radio" name="action1" th:field="*{actionType}" value="legalization"
+                               th:checked="true"> || </p>
     <p>Metoda odczytu: <br>
-        || Lokalny:<input type="radio" name="action2"  th:field="*{actionType2}" value="local">
-        || Radiowy:<input type="radio" name="action2"  th:field="*{actionType2}" value="radio">
-        || Auto:<input type="radio" name="action2"  th:field="*{actionType2}" value="auto" th:checked="true"> ||</p>
+        || Lokalny:<input type="radio" name="action2" th:field="*{readingMethod}" value="local">
+        || Radiowy:<input type="radio" name="action2" th:field="*{readingMethod}" value="radio">
+        || Auto:<input type="radio" name="action2" th:field="*{readingMethod}" value="auto" th:checked="true"> ||</p>
 
     <p> Adres: <input style="height: 22px" type="text" th:field="*{address}" />
 
@@ -44,12 +45,12 @@
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
         </select><br>
         <label> Rok legalizacji zainstalowanego licznika:</label>
-        <select th:field="*{meterInstalledLegalizationDate1}">
+        <select th:field="*{meterInstalledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{meterInstalledLegalizationDate2}">
+        <select th:field="*{meterInstalledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 12)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
@@ -75,12 +76,12 @@
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
         </select><br>
         <label> Rok legalizacji zdemontowanego licznika:</label>
-        <select th:field="*{meterDismantledLegalizationDate1}">
+        <select th:field="*{meterDismantledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-7), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{meterDismantledLegalizationDate2}">
+        <select th:field="*{meterDismantledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 12)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
@@ -115,12 +116,12 @@
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
         </select><br>
         <label>Rok legalizacji zainstalowanego przepływomierza:</label>
-        <select th:field="*{flowMeterInstalledLegalizationDate1}">
+        <select th:field="*{flowMeterInstalledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{flowMeterInstalledLegalizationDate2}">
+        <select th:field="*{flowMeterInstalledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 12)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
@@ -156,12 +157,12 @@
             <option th:each="option : ${impulse}" th:value="${option}" th:text="${option}" ></option>
         </select><br>
         <label>Rok legalizacji zdemontowanego przepływomierza:</label>
-        <select th:field="*{flowMeterDismantledLegalizationDate1}">
+        <select th:field="*{flowMeterDismantledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-7), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{flowMeterDismantledLegalizationDate2}">
+        <select th:field="*{flowMeterDismantledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 12)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
@@ -181,12 +182,12 @@
         Zainstalowany Czujnik temp. S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledSerialNumber1}" /><br>
         Rok produkcji zainstalowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorInstalledProductionYear}" /><br>
         Rok legalizacji zainstalowanego czujnika temperatury:
-        <select th:field="*{tempSensorInstalledLegalizationDate1}">
+        <select th:field="*{tempSensorInstalledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-1), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{tempSensorInstalledLegalizationDate2}">
+        <select th:field="*{tempSensorInstalledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 11)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
@@ -206,12 +207,12 @@
         Zdemontowany Czujnik temp. S/N: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledSerialNumber1}" /><br>
         Rok produkcji zdemontowanego czujnika temperatury: <input style="height: 22px" size="8px" type="text" th:field="*{tempSensorDismantledProductionYear}" /><br>
         Rok legalizacji zdemontowanego czujnika temperatury:
-        <select th:field="*{tempSensorDismantledLegalizationDate1}">
+        <select th:field="*{tempSensorDismantledLegalizationYear}">
             <option th:each="year : ${#numbers.sequence(T(org.example.domain.DateUtils).addYearsToCurrent(-7), T(org.example.domain.DateUtils).addYearsToCurrent(5))}"
                     th:value="${year}" th:text="${year}">
             </option>
         </select>
-        <select th:field="*{tempSensorDismantledLegalizationDate2}">
+        <select th:field="*{tempSensorDismantledLegalizationMonth}">
             <option th:each="month : ${#numbers.sequence(1, 11)}"
                     th:value="${month < 10 ? '0' + month : month}" th:text="${month < 10 ? '0' + month : month}">
             </option>
